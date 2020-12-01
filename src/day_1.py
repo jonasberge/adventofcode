@@ -3,7 +3,10 @@ from math import prod as multiply
 from lib.input import read_lines
 
 
-input = [ int(line.strip()) for line in read_lines(1) ]
+input = read_lines(1)
+input = [ int(line) for line in input ]
+input = sorted(input)
+
 goal = 2020
 
 
@@ -12,8 +15,7 @@ def sum_two():
       that are equal to the goal when summed.
   """
 
-  sorted_input = sorted(input)
-  current = lambda: sorted_input[i] + sorted_input[j]
+  current = lambda: input[i] + input[j]
 
   goal = 2020
   i, j = 0, len(input) - 1
@@ -24,7 +26,7 @@ def sum_two():
     else:
       i += 1  # add something
 
-  return sorted_input[i], sorted_input[j]
+  return input[i], input[j]
 
 
 def solve():
