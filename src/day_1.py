@@ -26,6 +26,9 @@ def sum_two():
     else:
       i += 1  # add something
 
+    if j < 0 or i >= len(input):
+      raise Exception()
+
   return input[i], input[j]
 
 
