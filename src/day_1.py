@@ -1,24 +1,19 @@
-from os import path
+from math import prod as multiply
+
+from lib.input import read_lines
 
 
-# read and sanitize input
-
-directory = path.dirname(__file__)
-input_file = path.join(directory, '../inputs/day-1.txt')
-
-with open(input_file) as f:
-  input = f.readlines()
-
-input = [ int(line.strip()) for line in input ]
+input = [ int(line.strip()) for line in read_lines(1) ]
+goal = 2020
 
 
-def solve(input, goal):
+def sum_two():
   """ finds two numbers in the input
       that are equal to the goal when summed.
   """
 
-  input = sorted(input)
-  current = lambda: input[i] + input[j]
+  sorted_input = sorted(input)
+  current = lambda: sorted_input[i] + sorted_input[j]
 
   goal = 2020
   i, j = 0, len(input) - 1
@@ -29,13 +24,8 @@ def solve(input, goal):
     else:
       i += 1  # add something
 
-  return input[i], input[j]
+  return sorted_input[i], sorted_input[j]
 
 
-goal = 2020
-a, b = solve(input, goal)
-
-assert a + b == goal
-
-product = a * b
-print(product)
+def solve():
+  return multiply(sum_two())
