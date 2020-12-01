@@ -2,7 +2,8 @@
   "folders": [
     {
       "path": ".",
-      "name": "Advent of Code"
+      "name": "Advent of Code",
+      "folder_exclude_patterns": ["__pycache__"]
     }
   ]
 }
