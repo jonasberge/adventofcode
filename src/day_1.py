@@ -29,6 +29,20 @@ def sum_two(goal):
   return input[i], input[j]
 
 
+def sum_three(goal):
+
+  for number in input:
+    sub_goal = goal - number
+    try: a, b = sum_two(sub_goal)
+    except: continue
+    return number, a, b
+
+  raise Exception()
+
+
 def solve():
   goal = 2020
-  return multiply(sum_two(goal))
+  return (
+    multiply(sum_two(goal)),
+    multiply(sum_three(goal))
+  )
