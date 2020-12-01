@@ -7,17 +7,14 @@ input = read_lines(1)
 input = [ int(line) for line in input ]
 input = sorted(input)
 
-goal = 2020
 
-
-def sum_two():
+def sum_two(goal):
   """ finds two numbers in the input
       that are equal to the goal when summed.
   """
 
   current = lambda: input[i] + input[j]
 
-  goal = 2020
   i, j = 0, len(input) - 1
 
   while current() != goal:
@@ -33,4 +30,5 @@ def sum_two():
 
 
 def solve():
-  return multiply(sum_two())
+  goal = 2020
+  return multiply(sum_two(goal))
