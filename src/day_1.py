@@ -13,15 +13,16 @@ def sum_two(goal):
       that are equal to the goal when summed.
   """
 
-  current = lambda: input[i] + input[j]
-
   i, j = 0, len(input) - 1
 
-  while current() != goal:
-    if current() > goal:
+  while True:
+    current = input[i] + input[j]
+
+    if current > goal:
       j -= 1  # subtract something
-    else:
+    elif current < goal:
       i += 1  # add something
+    else: break
 
     if j < 0 or i >= len(input):
       raise Exception()
@@ -30,6 +31,9 @@ def sum_two(goal):
 
 
 def sum_three(goal):
+  """ finds three numbers in the input
+      that are equal to the goal when summed.
+  """
 
   for number in input:
     sub_goal = goal - number
