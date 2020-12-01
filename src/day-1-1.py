@@ -12,26 +12,30 @@ with open(input_file) as f:
 input = [ int(line.strip()) for line in input ]
 
 
-# solve
+def solve(input, goal):
+  """ finds two numbers in the input
+      that are equal to the goal when summed.
+  """
 
-input = sorted(input)
-current = lambda: input[i] + input[j]
+  input = sorted(input)
+  current = lambda: input[i] + input[j]
+
+  goal = 2020
+  i, j = 0, len(input) - 1
+
+  while current() != goal:
+    if current() > goal:
+      j -= 1  # subtract something
+    else:
+      i += 1  # add something
+
+  return input[i], input[j]
+
 
 goal = 2020
-i, j = 0, len(input) - 1
+a, b = solve(input, goal)
 
+assert a + b == goal
 
-while current() != goal:
-
-  if current() > goal:  # subtract something, make j smaller
-    j -= 1
-  else:  # add something, make i greater
-    i += 1
-
-
-print(i, j)
-print(input[i], input[j])
-print('sum = {}'.format(current()))
-
-output = input[i] * input[j]
-print('product = {}'.format(output))
+product = a * b
+print(product)
