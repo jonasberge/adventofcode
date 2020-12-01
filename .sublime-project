@@ -1,8 +1,8 @@
 {
-	"folders":
-	[
-		{
-			"path": "."
-		}
-	]
+  "folders": [
+    {
+      "path": ".",
+      "name": "Advent of Code"
+    }
+  ]
 }
