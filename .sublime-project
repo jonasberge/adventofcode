@@ -3,6 +3,7 @@
     {
       "path": ".",
       "name": "Advent of Code",
+      "file_exclude_patterns": ["__init__.py"],
       "folder_exclude_patterns": ["__pycache__"]
     }
   ]
