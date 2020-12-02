@@ -43,5 +43,15 @@ def count_valid(RuleType):
   return valid_count
 
 
+class NewRule(Rule):
+  def is_valid(self, password):
+    n1_valid = password[self.n1 - 1] == self.letter
+    n2_valid = password[self.n2 - 1] == self.letter
+    return n1_valid ^ n2_valid
+
+
 def solve():
-  return count_valid(OldRule)
+  return (
+    count_valid(OldRule),
+    count_valid(NewRule)
+  )
