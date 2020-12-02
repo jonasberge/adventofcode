@@ -8,6 +8,7 @@ if __name__ == '__main__':
   day = argv[1]
 
   try: module = import_module('src.day_{}'.format(day))
-  except: exit(2)
+  except Exception as e:
+    raise e
 
   print(module.solve())
