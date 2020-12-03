@@ -27,7 +27,22 @@ def count_trees(right, down):
   return trees
 
 
+def count_multiple_slopes(slopes):
+  product = 1
+  for slope in slopes:
+    product *= count_trees(*slope)
+
+  return product
+
+
 def solve():
   return (
-    count_trees(3, 1)
+    count_trees(3, 1),
+    count_multiple_slopes([
+      (1, 1),
+      (3, 1),
+      (5, 1),
+      (7, 1),
+      (1, 2)
+    ])
   )
