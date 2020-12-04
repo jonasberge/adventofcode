@@ -13,26 +13,31 @@ def is_valid(keys):
   return keys - optional == required
 
 
-def count_valid():
-  if input[-1:]:
-    input.append('')
-
-  keys = set()
-  count = 0
+def passports():
+  current = {}
 
   for line in input:
     if not line:
-      count += int(is_valid(keys))
-      keys = set()
-      continue
+      yield current
+      current.clear()
 
-    found = re.findall(r"(\w+):[^\s]+", line)
-    keys.update(found)
+    found = re.findall(r"(\w+):([^\s]+)", line)
+    current.update(found)
+
+  if current:
+    yield current
+
+
+def count_valid_keys():
+  count = 0
+
+  for passport in passports():
+    count += int(is_valid(passport.keys()))
 
   return count
 
 
 def solve():
   return (
-    count_valid(),
+    count_valid_keys(),
   )
