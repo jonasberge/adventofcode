@@ -1,5 +1,6 @@
 import re
 
+from lib.describe import Is, All, Any, between, equal, match, in_
 from lib.input import read_lines
 from lib.util import irange
 
@@ -9,39 +10,46 @@ input = read_lines(4)
 required = set(['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid'])
 optional = set(['cid'])
 
-eye_colors = set(['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth'])
+structure = {
+  'byr': Is(int, between(1920, 2002)),
+  'iyr': Is(int, between(2010, 2020)),
+  'eyr': Is(int, between(2020, 2030)),
+  'hgt': Any([
+    All([
+      Is(lambda s: s[-2:], equal('cm')),
+      Is(lambda s: s[:-2], int, between(150, 193))
+    ]),
+    All([
+      Is(lambda s: s[-2:], equal('in')),
+      Is(lambda s: s[:-2], int, between(59, 76))
+    ])
+  ]),
+  'hcl': All([
+    Is(len, equal(7)),
+    Is(lambda s: s[:1], equal('#')),
+    Is(lambda s: s[1:], match(r'^[0-9a-f]*$'))
+  ]),
+  'ecl': Is(in_(set(['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth']))),
+  'pid': All([
+    Is(len, equal(9)),
+    Is(match(r'^[0-9]*$'))
+  ]),
+  'cid': lambda s: True
+}
 
 
-def is_valid_keys(keys):
-  return keys - optional == required
+def is_valid_fields(fields):
+  return fields - optional == required
 
 
 def is_valid_passport(passport):
-  if not is_valid_keys(passport.keys()):
+  if not is_valid_fields(passport.keys()):
     return False
 
-  if not int(passport['byr']) in irange(1920, 2002): return False
-  if not int(passport['iyr']) in irange(2010, 2020): return False
-  if not int(passport['eyr']) in irange(2020, 2030): return False
-
-  hgt = passport['hgt']
-  if len(hgt) < 3: return False
-  if hgt.endswith('cm'):
-    if not int(hgt[:-2]) in irange(150, 193): return False
-  elif hgt.endswith('in'):
-    if not int(hgt[:-2]) in irange(59, 76): return False
-  else: return False
-
-  hcl = passport['hcl']
-  if len(hcl) != 7: return False
-  if not hcl.startswith('#'): return False
-  elif set(hcl[1:]) - set('0123456789abcdef'): return False
-
-  if not passport['ecl'] in eye_colors: return False
-
-  pid = passport['pid']
-  if len(pid) != 9: return False
-  if set(pid) - set('0123456789'): return False
+  for field in passport.keys():
+    validator = structure[field]
+    if not validator(passport[field]):
+      return False
 
   return True
 
@@ -63,6 +71,6 @@ def passports():
 
 def solve():
   return (
-    sum(int(is_valid_keys(p.keys())) for p in passports()),
+    sum(int(is_valid_fields(p.keys())) for p in passports()),
     sum(int(is_valid_passport(p)) for p in passports())
   )
