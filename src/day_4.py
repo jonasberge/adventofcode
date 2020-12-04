@@ -2,7 +2,6 @@ import re
 
 from lib.describe import Is, All, Any, between, equal, match, in_
 from lib.input import read_lines
-from lib.util import irange
 
 
 input = read_lines(4)
