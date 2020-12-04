@@ -3,7 +3,6 @@ from lib.input import read_lines
 
 X, Y = 0, 1
 
-
 input = read_lines(3)
 width, height = len(input[0]), len(input)
 
