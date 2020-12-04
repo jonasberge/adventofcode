@@ -22,6 +22,13 @@ class OldRule(Rule):
     return password.count(self.letter) in self.range
 
 
+class NewRule(Rule):
+  def is_valid(self, password):
+    n1_valid = password[self.n1 - 1] == self.letter
+    n2_valid = password[self.n2 - 1] == self.letter
+    return n1_valid ^ n2_valid
+
+
 def parse_line(line):
   match = re.match(r"^(\d+)-(\d+)\s(\w):\s(\w*)$", line)
   n1, n2, letter, password = match.groups()
@@ -41,13 +48,6 @@ def count_valid(RuleType):
       valid_count += 1
 
   return valid_count
-
-
-class NewRule(Rule):
-  def is_valid(self, password):
-    n1_valid = password[self.n1 - 1] == self.letter
-    n2_valid = password[self.n2 - 1] == self.letter
-    return n1_valid ^ n2_valid
 
 
 def solve():
