@@ -44,8 +44,8 @@ def my_seat_id_2():
   seats = sorted(seat_ids())
 
   for i in range(len(seats)):
-    if i >= len(seats) - 2:
-      break # skip first and last seat
+    if i == len(seats) - 1:
+      break
 
     p1, n1 = seats[i:i + 2]
 
