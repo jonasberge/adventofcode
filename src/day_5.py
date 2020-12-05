@@ -17,12 +17,31 @@ def seat_id(line):
   return int(line, 2)
 
 
+def seat_ids():
+  return [ seat_id(line) for line in input ]
+
+
 def highest_seat_id():
-  return max(seat_id(line) for line in input)
+  return max(seat_ids())
+
+
+def my_seat_id():
+  seats = set(seat_ids())
+
+  other = [
+    seat
+    for seat in seats
+    if seat - 1 not in seats and seat - 2 in seats
+    or seat + 1 not in seats and seat + 2 in seats
+  ]
+
+  assert len(other) == 2, 'the condition is ambiguous'
+
+  return max(other) - 1
 
 
 def solve():
   return (
     highest_seat_id(),
-    None
+    my_seat_id()
   )
