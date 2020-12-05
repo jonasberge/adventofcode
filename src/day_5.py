@@ -40,8 +40,21 @@ def my_seat_id():
   return max(other) - 1
 
 
+def my_seat_id_2():
+  seats = sorted(seat_ids())
+
+  for i in range(len(seats)):
+    if i >= len(seats) - 2:
+      break # skip first and last seat
+
+    p1, n1 = seats[i:i + 2]
+
+    if n1 == p1 + 2:
+      return p1 + 1
+
+
 def solve():
   return (
     highest_seat_id(),
-    my_seat_id()
+    my_seat_id_2()
   )
