@@ -1,7 +1,7 @@
 import re
 
 from lib.describe import Is, All, Any, between, equal, match, in_
-from lib.input import read_lines
+from lib.input import read_lines, blocks
 
 
 input = read_lines(4)
@@ -54,18 +54,12 @@ def is_valid_passport(passport):
 
 
 def passports():
-  current = {}
+  for block in blocks(input):
+    current = {}
+    for line in block:
+      found = re.findall(r"(\w+):([^\s]+)", line)
+      current.update(found)
 
-  for line in input:
-    if not line:
-      yield current
-      current.clear()
-      continue
-
-    found = re.findall(r"(\w+):([^\s]+)", line)
-    current.update(found)
-
-  if current:
     yield current
 
 
