@@ -60,6 +60,7 @@ def passports():
     if not line:
       yield current
       current.clear()
+      continue
 
     found = re.findall(r"(\w+):([^\s]+)", line)
     current.update(found)

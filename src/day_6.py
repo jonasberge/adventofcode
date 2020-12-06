@@ -11,6 +11,7 @@ def answers():
     if not line:
       yield current
       current.clear()
+      continue
 
     found = set(line.strip())
     current.update(found)
