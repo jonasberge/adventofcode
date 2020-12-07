@@ -29,11 +29,11 @@ def get_mapping():
 
 
 def invert_mapping(mapping):
-  result = defaultdict(set)
+  result = defaultdict(dict)
 
   for this, counts in mapping.items():
     for other in counts.keys():
-      result[other].add(this)
+      result[other][this] = 1
 
   return result
 
@@ -44,20 +44,39 @@ def count_recursive(bag, inverted_mapping):
   visited = set()
 
   while queue:
-    current = queue.pop()
+    current = queue.popleft()
     if current in visited:
       continue
 
     visited.add(current)
     other = inverted_mapping[current]
-    queue.extend(other - visited)
+
+    for x, o in other.items():
+      if x not in visited:
+        queue.append(x)
 
   # subtract the shiny gold bag
   return len(visited) - 1
 
 
+def count_recursive_2(bag, mapping):
+  queue = deque([(bag, 1)])
+  count = 0
+
+  while queue:
+    b1, c1 = queue.popleft()
+
+    other = mapping[b1]
+    count += c1
+
+    for b2, c2 in other.items():
+      queue.append((b2, c1 * c2))
+
+  return count - 1
+
+
 def solve():
   return (
     count_recursive('shiny gold', invert_mapping(get_mapping())),
-    0
+    count_recursive_2('shiny gold', get_mapping())
   )
