@@ -1,3 +1,4 @@
+from copy import deepcopy
 from functools import partial
 import re
 
@@ -79,6 +80,9 @@ class Program:
     instruction = (operation, args)
     self.instructions.append(instruction)
 
+  def __len__(self):
+    return len(self.instructions)
+
 
 #
 # "Ein Prozess ist ein Programm in Ausführung."
@@ -116,27 +120,57 @@ class Console(System):
       pass
 
 
-def find_loop():
+def find_loop(program):
   visited = set()
+  is_looping = False
 
   system = Console()
-  program = parse_code()
   process = system.load(program)
 
   while process.is_running():
     program_counter = system.program_counter()
 
     if program_counter in visited:
+      is_looping = True
       break
 
     visited.add(program_counter)
     process.step()
 
-  return system.accumulator()
+  return system.accumulator(), is_looping
+
+
+def alternative_programs():
+  original_program = parse_code()
+
+  for i in range(len(original_program)):
+
+    instruction = original_program.instructions[i]
+    operation, arguments = instruction
+
+    if operation in ('jmp', 'nop'):
+      new_operation = 'nop' if operation == 'jmp' else 'jmp'
+      new_instruction = (new_operation, arguments)
+
+      alternative_program = deepcopy(original_program)
+      alternative_program.instructions[i] = new_instruction
+
+      yield alternative_program
+
+
+def fix_code():
+  """ naive approach of just trying every combination. """
+
+  for program in alternative_programs():
+    accumulator, is_looping = find_loop(program)
+    if not is_looping:
+      return accumulator
+
+  raise Exception('Code cannot be fixed by flipping a single operation')
 
 
 def solve():
   return (
-    find_loop(),
-    0
+    find_loop(parse_code())[0],
+    fix_code()
   )
