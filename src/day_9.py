@@ -67,8 +67,46 @@ def attack_weakness(size):
   raise Exception('No attack surface')
 
 
+def break_encryption(target, min_subsequence_length=2):
+
+  accumulator = 0
+
+  history = deque()
+  numbers = deque(input)
+
+  for _ in range(min_subsequence_length):
+    number = numbers.popleft()
+    history.append(number)
+    accumulator += number
+
+  while numbers:
+
+    if accumulator > target:
+      subtract = history.popleft()
+      accumulator -= subtract
+      continue
+
+    number = numbers.popleft()
+
+    if accumulator < target:
+      history.append(number)
+      accumulator += number
+      continue
+
+    break
+
+  # check again because the loop might
+  # exit before checking the condition.
+  if accumulator == target:
+    return min(history) + max(history)
+
+  raise Exception('Unable to break the encryption')
+
+
 def solve():
+  target = attack_weakness(25)
+
   return (
-    attack_weakness(25),
-    0
+    target,
+    break_encryption(target)
   )
