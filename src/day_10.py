@@ -11,17 +11,17 @@ input.insert(0, 0)  # charging outlet
 input.append(input[-1] + 3)  # built-in adapter
 
 
-def differences(accuracy):
+def differences(tolerance):
   counts = defaultdict(int)
 
   for i in range(len(input) - 1):
     r, s = input[i:i + 2]
     counts[s - r] += 1
 
-  return counts[1] * counts[3]
+  return counts[1] * counts[tolerance]
 
 
-def arrangements():
+def arrangements(tolerance):
   """ solution: use dynamic programming by going backward.
 
       e.g. numbers: 1, 3, 4, 6
@@ -55,7 +55,7 @@ def arrangements():
     rating = ratings.pop()
     possibilities = 0
 
-    for other in range(rating + 1, rating + 3 + 1):
+    for other in range(rating + 1, rating + tolerance + 1):
       if other in dp:
         possibilities += dp[other]
 
@@ -64,8 +64,5 @@ def arrangements():
   return dp[input[0]]
 
 
-def solve():
-  return (
-    differences([-3, -2, -1]),
-    arrangements()
-  )
+solve_1 = lambda: differences(3)
+solve_2 = lambda: arrangements(3)
