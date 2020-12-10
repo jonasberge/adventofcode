@@ -1,0 +1,2 @@
+pytest ~= 6.1
+pytest-depends ~= 1.0

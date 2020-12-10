@@ -4,7 +4,7 @@
       "path": ".",
       "name": "Advent of Code",
       "file_exclude_patterns": ["__init__.py"],
-      "folder_exclude_patterns": ["__pycache__"]
+      "folder_exclude_patterns": ["__pycache__", ".pytest_cache", "venv"]
     }
   ]
 }
