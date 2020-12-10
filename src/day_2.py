@@ -50,8 +50,5 @@ def count_valid(RuleType):
   return valid_count
 
 
-def solve():
-  return (
-    count_valid(OldRule),
-    count_valid(NewRule)
-  )
+solve_1 = lambda: count_valid(OldRule)
+solve_2 = lambda: count_valid(NewRule)

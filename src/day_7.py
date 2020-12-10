@@ -75,8 +75,5 @@ def count_recursive_2(bag, mapping):
   return count - 1
 
 
-def solve():
-  return (
-    count_recursive('shiny gold', invert_mapping(get_mapping())),
-    count_recursive_2('shiny gold', get_mapping())
-  )
+solve_1 = lambda: count_recursive('shiny gold', invert_mapping(get_mapping()))
+solve_2 = lambda: count_recursive_2('shiny gold', get_mapping())

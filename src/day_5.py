@@ -53,8 +53,5 @@ def my_seat_id_2():
       return p1 + 1
 
 
-def solve():
-  return (
-    highest_seat_id(),
-    my_seat_id_2()
-  )
+solve_1 = lambda: highest_seat_id()
+solve_2 = lambda: my_seat_id_2()

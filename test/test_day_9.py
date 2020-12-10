@@ -9,7 +9,7 @@ class part_1:
     assert problem.attack_weakness(5) == 127
 
   def test_solution(self, problem):
-    assert problem.solve()[0] == 552655238
+    assert problem.solve_1() == 552655238
 
 
 class part_2:
@@ -20,4 +20,4 @@ class part_2:
     assert problem.break_encryption(target) == 62
 
   def test_solution(self, problem):
-    assert problem.solve()[1] == 70672245
+    assert problem.solve_2() == 70672245

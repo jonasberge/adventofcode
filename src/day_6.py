@@ -23,8 +23,5 @@ def sum_len(collection):
   return sum(len(e) for e in collection)
 
 
-def solve():
-  return (
-    sum_len(answered()),
-    sum_len(answered_by_all())
-  )
+solve_1 = lambda: sum_len(answered())
+solve_2 = lambda: sum_len(answered_by_all())

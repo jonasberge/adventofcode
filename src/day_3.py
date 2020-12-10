@@ -34,14 +34,12 @@ def count_multiple_slopes(slopes):
   return product
 
 
-def solve():
-  return (
-    count_trees(3, 1),
-    count_multiple_slopes([
-      (1, 1),
-      (3, 1),
-      (5, 1),
-      (7, 1),
-      (1, 2)
-    ])
-  )
+solve_1 = lambda: count_trees(3, 1)
+solve_2 = lambda: \
+  count_multiple_slopes([
+    (1, 1),
+    (3, 1),
+    (5, 1),
+    (7, 1),
+    (1, 2)
+  ])

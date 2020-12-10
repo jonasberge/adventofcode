@@ -11,4 +11,7 @@ if __name__ == '__main__':
   except Exception as e:
     raise e
 
-  print(module.solve())
+  print((
+    module.solve_1(),
+    module.solve_2()
+  ))

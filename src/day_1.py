@@ -44,9 +44,5 @@ def sum_three(goal):
   raise Exception()
 
 
-def solve():
-  goal = 2020
-  return (
-    multiply(sum_two(goal)),
-    multiply(sum_three(goal))
-  )
+solve_1 = lambda: multiply(sum_two(2020))
+solve_2 = lambda: multiply(sum_three(2020))

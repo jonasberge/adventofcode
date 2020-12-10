@@ -103,10 +103,5 @@ def break_encryption(target, min_subsequence_length=2):
   raise Exception('Unable to break the encryption')
 
 
-def solve():
-  target = attack_weakness(25)
-
-  return (
-    target,
-    break_encryption(target)
-  )
+solve_1 = lambda: attack_weakness(25)
+solve_2 = lambda: break_encryption(solve_1())

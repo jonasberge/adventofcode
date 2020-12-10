@@ -63,8 +63,5 @@ def passports():
     yield current
 
 
-def solve():
-  return (
-    sum(int(is_valid_fields(p.keys())) for p in passports()),
-    sum(int(is_valid_passport(p)) for p in passports())
-  )
+solve_1 = lambda: sum(int(is_valid_fields(p.keys())) for p in passports())
+solve_2 = lambda: sum(int(is_valid_passport(p)) for p in passports())

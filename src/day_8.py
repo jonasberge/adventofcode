@@ -169,8 +169,5 @@ def fix_code():
   raise Exception('Code cannot be fixed by flipping a single operation')
 
 
-def solve():
-  return (
-    find_loop(parse_code())[0],
-    fix_code()
-  )
+solve_1 = lambda: find_loop(parse_code())[0]
+solve_2 = lambda: fix_code()
