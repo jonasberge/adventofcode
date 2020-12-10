@@ -10,10 +10,10 @@ TEMPLATE_TEST="$(TEMPLATE_DIR)/$(PREFIX_TEST)_x.py"
 
 # https://stackoverflow.com/a/14061796
 ifeq (new,$(firstword $(MAKECMDGOALS)))
-  ARG_DAY := $(wordlist 2,2,$(MAKECMDGOALS))
-  TARGET_DAY := "$(SRC_DIR)/$(PREFIX_DAY)_$(ARG_DAY).py"
-  TARGET_TEST := "$(TEST_DIR)/$(PREFIX_TEST)_$(ARG_DAY).py"
-  $(eval $(ARG_DAY):;@:)
+	ARG_DAY := $(wordlist 2,2,$(MAKECMDGOALS))
+	TARGET_DAY := "$(SRC_DIR)/$(PREFIX_DAY)_$(ARG_DAY).py"
+	TARGET_TEST := "$(TEST_DIR)/$(PREFIX_TEST)_$(ARG_DAY).py"
+  $(eval "$(ARG_DAY)":;@:)  # indent with spaces so this is not a target.
 endif
 
 new:
