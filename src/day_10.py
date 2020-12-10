@@ -1,4 +1,4 @@
-from collections import defaultdict
+from collections import defaultdict, deque
 
 from lib.input import read_lines
 
@@ -21,8 +21,51 @@ def differences(accuracy):
   return counts[1] * counts[3]
 
 
+def arrangements():
+  """ solution: use dynamic programming by going backward.
+
+      e.g. numbers: 1, 3, 4, 6
+      solutions: 1346, 136, 146
+
+      iterate starting at the last (i.e. largest) element.
+      notation: X => N = a+b+c (U, V, W): X -> U, X -> V, X -> W
+      - X is the current number.
+      - N is the number of possibilities to arrange starting at X.
+      - a+b+c are the N's of U, V and W respectively.
+        some elements may be omitted.
+      - U, V and W are nodes after X which are in range
+        i.e. X < U,V,W <= X+3
+      - i -> j denotes a possible connection between i and j
+
+      I.   6 => 1 (): 6
+      II.  4 => 1 (6): 4 -> 6
+      III. 3 => 2 (4, 6): 3 -> 4, 3 -> 6
+      IV.  1 => 3 = 2 + 1 (3, 4): 1 -> 3, 1 -> 4
+
+      => U, V and W are reused from previous results (dp).
+  """
+
+  ratings = deque(input)
+  dp = dict()
+
+  # initialize with the last element.
+  dp[ratings.pop()] = 1
+
+  while ratings:
+    rating = ratings.pop()
+    possibilities = 0
+
+    for other in range(rating + 1, rating + 3 + 1):
+      if other in dp:
+        possibilities += dp[other]
+
+    dp[rating] = possibilities
+
+  return dp[input[0]]
+
+
 def solve():
   return (
     differences([-3, -2, -1]),
-    0
+    arrangements()
   )
