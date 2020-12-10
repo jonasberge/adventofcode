@@ -140,9 +140,7 @@ def find_loop(program):
   return system.accumulator(), is_looping
 
 
-def alternative_programs():
-  original_program = parse_code()
-
+def alternative_programs(original_program):
   for i in range(len(original_program)):
 
     instruction = original_program.instructions[i]
@@ -158,10 +156,10 @@ def alternative_programs():
       yield alternative_program
 
 
-def fix_code():
+def fix_code(original_program):
   """ naive approach of just trying every combination. """
 
-  for program in alternative_programs():
+  for program in alternative_programs(original_program):
     accumulator, is_looping = find_loop(program)
     if not is_looping:
       return accumulator
@@ -170,4 +168,4 @@ def fix_code():
 
 
 solve_1 = lambda: find_loop(parse_code())[0]
-solve_2 = lambda: fix_code()
+solve_2 = lambda: fix_code(parse_code())
