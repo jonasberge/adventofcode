@@ -16,3 +16,6 @@ def use_example(example):
     return wrapper
 
   return decorator
+
+
+skip = pytest.mark.skip
