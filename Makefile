@@ -26,6 +26,9 @@ new:
 	cp "$(TEMPLATE_TEST)" $(TARGET_TEST)
 	sed -i "s/'''?x'''/$(ARG_DAY)/g" $(TARGET_DAY)
 	command -v $(OPEN) && $(OPEN) $(TARGET_TEST) $(TARGET_DAY) || true
+	curl -f -b "session=$(source .env && echo $SESSION)" \
+		"https://adventofcode.com/2020/day/$(ARG_DAY)/input" \
+		-o "./inputs/day-$(ARG_DAY).txt"
 
 test:
 	$(TEST)
