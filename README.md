@@ -7,7 +7,7 @@ Workspace and solutions to fun problems found on [adventofcode.com](https://adve
 ```
 $ make venv
 $ . venv/bin/activate
-$ make install  # (venv)
+$ make install
 ```
 
 ### Configure
@@ -20,12 +20,24 @@ $ make new 1
 
 This creates a solution script and a corresponding test file and opens them in your editor (`subl`). Additionally, the puzzle input is downloaded and saved in `inputs/day-1.txt`.
 
+### Run
+
+To run e.g. the first part of your first solution execute the command below. You can also omit the second parameter to execute both solutions at once sequentially.
+
+```
+$ python solve.py 1 1
+605364
+$ python solve.py 1
+605364
+128397680
+```
+
 ### Test
 
 Execute one of these commands to run the tests. The former requires your virtualenv to be loaded, the latter doesn't.
 
 ```
-$ pytest  # (venv)
+$ pytest
 $ make test
 ```
 
