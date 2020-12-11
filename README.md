@@ -33,5 +33,5 @@ $ make test
 
 #### License
 
-MIT License. See `LICENSE` for details.  
+MIT License. See [`LICENSE`](/LICENSE) for details.  
 Copyright (c) 2020 Jonas van den Berg
