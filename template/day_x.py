@@ -1,4 +1,6 @@
-from collections import deque
+from collections import defaultdict, deque
+from copy import copy, deepcopy
+import re
 
 from lib.input import read_lines
 
