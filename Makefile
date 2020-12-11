@@ -19,6 +19,13 @@ ifeq (new,$(firstword $(MAKECMDGOALS)))
   $(eval "$(ARG_DAY)":;@:)  # indent with spaces so this is not a target.
 endif
 
+venv:
+	python3 -m venv venv
+
+install:
+	pip install -U pip
+	pip install -r requirements.txt
+
 new:
 	test ! -f $(TARGET_DAY)
 	test ! -f $(TARGET_TEST)
