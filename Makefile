@@ -19,6 +19,9 @@ ifeq (new,$(firstword $(MAKECMDGOALS)))
 	TARGET_DAY := "$(SRC_DIR)/$(PREFIX_DAY)_$(ARG_DAY).py"
 	TARGET_TEST := "$(TEST_DIR)/$(PREFIX_TEST)_$(ARG_DAY).py"
   $(eval $(ARG_DAY):;@:)  # indent with spaces so this is not a target.
+else ifeq (test,$(firstword $(MAKECMDGOALS)))
+	ARG_DAY := $(wordlist 2,2,$(MAKECMDGOALS))
+  $(eval $(ARG_DAY):;@:)
 endif
 
 venv:
@@ -40,6 +43,10 @@ new:
 		-o "./inputs/day-$(ARG_DAY).txt"
 
 test:
-	$(TEST)
+	@if [ -z "${ARG_DAY}" ]; then \
+		$(TEST); \
+	else \
+		$(TEST) "$(TEST_DIR)/$(PREFIX_TEST)_$(ARG_DAY).py"; \
+	fi
 
 .PHONY: venv install new test
