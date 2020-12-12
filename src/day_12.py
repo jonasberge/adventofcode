@@ -35,31 +35,16 @@ class Direction:
     return self.facing
 
 
-class Location:
-  def __init__(self, /, facing=NORTH, position=(0, 0)):
-    self.direction = Direction(facing)
-    self.x = position[0]
-    self.y = position[1]
-
-  def rotate(self, degrees):
-    self.direction.rotate(degrees)
+class Position:
+  def __init__(self, x, y):
+    self.x = x
+    self.y = y
 
   def rotate_around_origin(self, degrees):
     degrees %= 360
-    if degrees == 180:
-      self.x = -self.x
-      self.y = -self.y
-    elif degrees == 90:
-      y = self.y
-      self.y = -self.x
-      self.x = y
-    elif degrees == 270:
-      y = self.y
-      self.y = self.x
-      self.x = -y
-
-  def forward(self, distance):
-    self.move(str(self.direction), distance)
+    if degrees == 180: self.x, self.y = -self.x, -self.y
+    elif degrees == 90: self.x, self.y = self.y, -self.x
+    elif degrees == 270: self.x, self.y = -self.y, self.x
 
   def move(self, direction, distance):
     if direction == NORTH: self.y += distance
@@ -68,40 +53,52 @@ class Location:
     elif direction == WEST: self.x -= distance
 
 
+class Location(Position):
+  def __init__(self, /, position=(0, 0), facing=NORTH):
+    super().__init__(position[0], position[1])
+    self.direction = Direction(facing)
+
+  def rotate(self, degrees):
+    self.direction.rotate(degrees)
+
+  def forward(self, distance):
+    self.move(str(self.direction), distance)
+
+
+def manhattan(x, y):
+  return abs(x) + abs(y)
+
+
+def actions():
+  for line in input:
+    yield line[0], int(line[1:])
+
+
 def navigate():
   ship = Location(facing=EAST)
 
-  for line in input:
-    action, amount = line[0], int(line[1:])
-
+  for action, amount in actions():
     if action == FORWARD: ship.forward(amount)
     elif action == RIGHT: ship.rotate(amount)
     elif action == LEFT: ship.rotate(-amount)
     else: ship.move(action, amount)
 
-  return abs(ship.x) + abs(ship.y)
+  return manhattan(ship.x, ship.y)
 
 
 def navigate_2():
   ship = Location(facing=EAST)
-  waypoint = Location(facing=None, position=(10, 1))
+  waypoint = Position(10, 1)
 
-  for line in input:
-    action, amount = line[0], int(line[1:])
-
+  for action, amount in actions():
     if action == FORWARD:
-      dx, dy = waypoint.x, waypoint.y
-      ship.x += amount * dx
-      ship.y += amount * dy
+      ship.x += amount * waypoint.x
+      ship.y += amount * waypoint.y
     elif action == RIGHT: waypoint.rotate_around_origin(amount)
     elif action == LEFT: waypoint.rotate_around_origin(-amount)
     else: waypoint.move(action, amount)
 
-    print((ship.x, ship.y), ship.direction.facing)
-    print((waypoint.x, waypoint.y))
-    print()
-
-  return abs(ship.x) + abs(ship.y)
+  return manhattan(ship.x, ship.y)
 
 
 solve_1 = lambda: navigate()
