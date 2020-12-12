@@ -44,6 +44,20 @@ class Location:
   def rotate(self, degrees):
     self.direction.rotate(degrees)
 
+  def rotate_around_origin(self, degrees):
+    degrees %= 360
+    if degrees == 180:
+      self.x = -self.x
+      self.y = -self.y
+    elif degrees == 90:
+      y = self.y
+      self.y = -self.x
+      self.x = y
+    elif degrees == 270:
+      y = self.y
+      self.y = self.x
+      self.x = -y
+
   def forward(self, distance):
     self.move(str(self.direction), distance)
 
@@ -68,9 +82,27 @@ def navigate():
   return abs(ship.x) + abs(ship.y)
 
 
-def part_2():
-  return None
+def navigate_2():
+  ship = Location(facing=EAST)
+  waypoint = Location(facing=None, position=(10, 1))
+
+  for line in input:
+    action, amount = line[0], int(line[1:])
+
+    if action == FORWARD:
+      dx, dy = waypoint.x, waypoint.y
+      ship.x += amount * dx
+      ship.y += amount * dy
+    elif action == RIGHT: waypoint.rotate_around_origin(amount)
+    elif action == LEFT: waypoint.rotate_around_origin(-amount)
+    else: waypoint.move(action, amount)
+
+    print((ship.x, ship.y), ship.direction.facing)
+    print((waypoint.x, waypoint.y))
+    print()
+
+  return abs(ship.x) + abs(ship.y)
 
 
 solve_1 = lambda: navigate()
-solve_2 = lambda: part_2()
+solve_2 = lambda: navigate_2()
