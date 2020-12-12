@@ -1,6 +1,8 @@
 SRC_DIR=src
 TEST_DIR=test
-TEMPLATE_DIR="template"
+INPUTS_DIR=inputs
+EXAMPLES_DIR="$(INPUTS_DIR)/examples"
+TEMPLATE_DIR=template
 
 PREFIX_DAY=day
 PREFIX_TEST=test_day
@@ -38,9 +40,12 @@ new:
 	cp "$(TEMPLATE_TEST)" $(TARGET_TEST)
 	sed -i "s/'''?x'''/$(ARG_DAY)/g" $(TARGET_DAY)
 	command -v $(OPEN) && $(OPEN) $(TARGET_TEST) $(TARGET_DAY) || true
+	$(eval EXAMPLES_DIR_DAY="$(EXAMPLES_DIR)/$(PREFIX_DAY)-$(ARG_DAY)")
+	mkdir -p $(INPUTS_DIR) $(EXAMPLES_DIR_DAY)
+	touch "$(EXAMPLES_DIR_DAY)/example-1.txt"
 	curl -f -b "session=$(SESSION)" \
 		"https://adventofcode.com/2020/day/$(ARG_DAY)/input" \
-		-o "./inputs/day-$(ARG_DAY).txt"
+		-o "$(INPUTS_DIR)/$(PREFIX_DAY)-$(ARG_DAY).txt"
 
 test:
 	@if [ -z "${ARG_DAY}" ]; then \
