@@ -1,3 +1,4 @@
+from itertools import combinations
 from collections import defaultdict, deque
 from copy import copy, deepcopy
 import re
@@ -29,8 +30,40 @@ class Program:
     return self._memory[address]
 
 
-def part_1():
-  program = Program()
+class Program_v2(Program):
+  def __init__(self):
+    super().__init__()
+    self._floating_masks = []
+
+  def set_mask(self, value):
+    and_mask = value.replace('1', 'X').replace('0', '1').replace('X', '0')
+    self._and_mask = int(and_mask, 2)
+    self._or_mask = int(value.replace('X', '0'),  2)
+
+    floating_bits = []
+    for index, bit in enumerate(value):
+      if bit == 'X':
+        position = len(value) - index - 1
+        floating_bits.append(position)
+
+    self._floating_masks.clear()
+    for ones in range(len(floating_bits) + 1):
+      for make_one in combinations(floating_bits, ones):
+        mask = 0
+        for bit in make_one:
+          mask |= (2**bit)
+        self._floating_masks.append(mask)
+
+  def __setitem__(self, address, value):
+    address &= self._and_mask
+    address |= self._or_mask
+
+    for mask in self._floating_masks:
+      write_to = address | mask
+      self._memory[write_to] = value
+
+
+def solve(program):
 
   for line in input:
     match = re.match(pattern, line)
@@ -45,9 +78,5 @@ def part_1():
   return sum(value for value in program._memory.values())
 
 
-def part_2():
-  return None
-
-
-solve_1 = lambda: part_1()
-solve_2 = lambda: part_2()
+solve_1 = lambda: solve(Program())
+solve_2 = lambda: solve(Program_v2())
