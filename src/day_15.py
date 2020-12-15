@@ -1,7 +1,3 @@
-from collections import defaultdict, deque
-from copy import copy, deepcopy
-import re
-
 from lib.input import read_lines
 
 
@@ -36,21 +32,17 @@ class Game:
     return self._last
 
 
-def part_1(turns):
+def solve(turns):
   game = Game()
   for number in input:
     game.add(int(number))
 
   steps = turns - len(input)
-  for _ in range(steps):
+  for step in range(steps):
     game.step()
 
   return game.last
 
 
-def part_2():
-  return None
-
-
-solve_1 = lambda: part_1(2020)
-solve_2 = lambda: part_2()
+solve_1 = lambda: solve(2020)
+solve_2 = lambda: solve(30000000)
