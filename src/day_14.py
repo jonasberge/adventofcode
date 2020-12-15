@@ -17,6 +17,14 @@ class Program:
     self._or_mask = 0
     self._memory = {}
 
+  def __getitem__(self, address):
+    return self._memory[address]
+
+  def values(self):
+    return self._memory.values()
+
+
+class Program_v1(Program):
   def set_mask(self, value):
     self._and_mask = int(value.replace('1', '0').replace('X', '1'), 2)
     self._or_mask = int(value.replace('X', '0'),  2)
@@ -25,9 +33,6 @@ class Program:
     value &= self._and_mask
     value |= self._or_mask
     self._memory[address] = value
-
-  def __getitem__(self, address):
-    return self._memory[address]
 
 
 class Program_v2(Program):
@@ -75,8 +80,8 @@ def solve(program):
       address, value = int(address), int(value)
       program[address] = value
 
-  return sum(value for value in program._memory.values())
+  return sum(program.values())
 
 
-solve_1 = lambda: solve(Program())
+solve_1 = lambda: solve(Program_v1())
 solve_2 = lambda: solve(Program_v2())
