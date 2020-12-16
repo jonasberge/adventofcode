@@ -1,3 +1,4 @@
+from itertools import chain
 from collections import defaultdict, deque
 from copy import copy, deepcopy
 import re
@@ -20,6 +21,9 @@ class Rule:
       if item in range_:
         return True
     return False
+
+  def __repr__(self):
+    return self.name
 
 
 class Ticket:
@@ -53,7 +57,7 @@ def parse_rules(lines):
 
 def parse_ticket(line):
   values = line.split(',')
-  values = map(int, values)
+  values = list(map(int, values))
   return Ticket(values)
 
 
@@ -85,15 +89,24 @@ def parse_nearby_tickets(lines):
   return tickets
 
 
-def part_1():
+def parse_input():
   lines = iter(input)
   rules = parse_rules(lines)
-  _ = parse_own_ticket(lines)
-  tickets = parse_nearby_tickets(lines)
+  own_ticket = parse_own_ticket(lines)
+  nearby_tickets = parse_nearby_tickets(lines)
 
-  invalid_values_sum = 0
+  for ticket in chain([own_ticket], nearby_tickets):
+    assert len(ticket) == len(rules)
+
+  return rules, own_ticket, nearby_tickets
+
+
+def split_valid_tickets(tickets, rules):
+  valid_tickets = []
+  invalid_values = []
 
   for ticket in tickets:
+    all_valid = True
     for value in ticket.values:
       valid = False
       for rule in rules:
@@ -101,23 +114,73 @@ def part_1():
           valid = True
           break
       if not valid:
-        invalid_values_sum += value
+        invalid_values.append(value)
+        all_valid = False
+        break
 
-  return invalid_values_sum
+    if all_valid:
+      valid_tickets.append(ticket)
 
-  for rule in rules:
-    print(rule.name, rule.ranges)
-
-  for ticket in tickets:
-    print(ticket.values)
-
-  return None
+  return valid_tickets, invalid_values
 
 
+def valid_tickets(tickets, rules):
+  return split_valid_tickets(tickets, rules)[0]
 
-def part_2():
-  return None
+def invalid_tickets(tickets, rules):
+  return split_valid_tickets(tickets, rules)[1]
 
 
-solve_1 = lambda: part_1()
-solve_2 = lambda: part_2()
+def sum_invalid():
+  rules, own_ticket, nearby_tickets = parse_input()
+  return sum(invalid_tickets(nearby_tickets, rules))
+
+
+def multiply_own_departure_values():
+  rules, own_ticket, nearby_tickets = parse_input()
+  other_tickets = valid_tickets(nearby_tickets, rules)
+
+  rule_candidates = [set() for _ in range(len(rules))]
+
+  for k, ticket in enumerate(other_tickets):
+    for i, value in enumerate(ticket.values):
+
+      valid_rules = set()
+      for j, rule in enumerate(rules):
+        if value in rule:
+          valid_rules.add(j)
+
+      if k == 0:
+        rule_candidates[i] |= valid_rules
+      else:
+        rule_candidates[i] &= valid_rules
+
+  rule_candidates = sorted(enumerate(rule_candidates), key=lambda x: len(x[1]))
+  used_rules = set()
+
+  column_for_rule = [None for _ in range(len(rules))]
+
+  for index, candidates in rule_candidates:
+    selected = candidates - used_rules
+    print(selected)
+    assert len(selected) == 1
+    used_rules |= selected
+
+    selected = list(selected)[0]
+    column_for_rule[selected] = index
+
+  product = 1
+
+  for index, rule in enumerate(rules):
+    if not rule.name.startswith('departure'):
+      continue
+
+    column = column_for_rule[index]
+    value = own_ticket.values[column]
+    product *= value
+
+  return product
+
+
+solve_1 = lambda: sum_invalid()
+solve_2 = lambda: multiply_own_departure_values()

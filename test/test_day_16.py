@@ -10,7 +10,11 @@ class part_1:
     assert problem.solve_1() == 29759
 
 
-@skip
 class part_2:
-  def test_solution(self, problem):
+  @skip
+  @use_example(2)
+  def test_example_2(self, problem):
     assert problem.solve_2() == 0000
+
+  def test_solution(self, problem):
+    assert problem.solve_2() == 1307550234719
