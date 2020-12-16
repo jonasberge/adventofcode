@@ -1,5 +1,6 @@
 SRC_DIR=src
 TEST_DIR=test
+LORE_DIR=lore
 INPUTS_DIR=inputs
 EXAMPLES_DIR="$(INPUTS_DIR)/examples"
 TEMPLATE_DIR=template
@@ -21,6 +22,9 @@ ifeq (touch,$(firstword $(MAKECMDGOALS)))
 	TARGET_DAY := "$(SRC_DIR)/$(PREFIX_DAY)_$(ARG_DAY).py"
 	TARGET_TEST := "$(TEST_DIR)/$(PREFIX_TEST)_$(ARG_DAY).py"
   $(eval $(ARG_DAY):;@:)  # indent with spaces so this is not a target.
+else ifeq (lore,$(firstword $(MAKECMDGOALS)))
+	ARG_DAY := $(wordlist 2,2,$(MAKECMDGOALS))
+  $(eval $(ARG_DAY):;@:)
 else ifeq (test,$(firstword $(MAKECMDGOALS)))
 	ARG_DAY := $(wordlist 2,2,$(MAKECMDGOALS))
   $(eval $(ARG_DAY):;@:)
@@ -47,6 +51,10 @@ touch:
 		"https://adventofcode.com/2020/day/$(ARG_DAY)/input" \
 		-o "$(INPUTS_DIR)/$(PREFIX_DAY)-$(ARG_DAY).txt"
 
+lore:
+	mkdir -p $(LORE_DIR)
+	SESSION=$(SESSION) python3 ./scripts/parse.py $(ARG_DAY) $(LORE_DIR)
+
 test:
 	@if [ -z "${ARG_DAY}" ]; then \
 		$(TEST); \
@@ -54,4 +62,4 @@ test:
 		$(TEST) "$(TEST_DIR)/$(PREFIX_TEST)_$(ARG_DAY).py"; \
 	fi
 
-.PHONY: venv install new test
+.PHONY: venv install touch lore test
