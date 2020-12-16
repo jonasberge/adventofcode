@@ -126,13 +126,13 @@ def split_valid_tickets(tickets, rules):
 def valid_tickets(tickets, rules):
   return split_valid_tickets(tickets, rules)[0]
 
-def invalid_tickets(tickets, rules):
+def invalid_values(tickets, rules):
   return split_valid_tickets(tickets, rules)[1]
 
 
 def sum_invalid():
   rules, own_ticket, nearby_tickets = parse_input()
-  return sum(invalid_tickets(nearby_tickets, rules))
+  return sum(invalid_values(nearby_tickets, rules))
 
 
 def own_ticket_values(predicate=lambda r: True):
