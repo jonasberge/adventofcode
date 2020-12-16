@@ -2,7 +2,8 @@
 
 As your ferry approaches the sea port, the captain asks for your help again. The computer system that runs this port isn't compatible with the docking program on the ferry, so the docking parameters aren't being correctly initialized in the docking program's memory.
 
-<p>After a brief inspection, you discover that the sea port's computer system uses a strange <a href="https://en.wikipedia.org/wiki/Mask_(computing)" target="_blank">bitmask</a> system in its initialization program. Although you don't have the correct decoder chip handy, you can emulate it in software!</p>
+After a brief inspection, you discover that the sea port's computer system uses a strange [bitmask](https://adventofcode.comhttps://en.wikipedia.org/wiki/Mask_(computing)) system in its initialization program. Although you don't have the correct decoder chip handy, you can emulate it in software!
+
 The initialization program (your puzzle input) can either update the bitmask or write a value to memory.  Values and memory addresses are both 36-bit unsigned integers.  For example, ignoring bitmasks for a moment, a line like `mem[8] = 11` would write the value `11` to memory address `8`.
 
 The bitmask is always given as a string of 36 bits, written with the most significant bit (representing `2^35`) on the left and the least significant bit (`2^0`, that is, the `1`s bit) on the right. The current bitmask is applied to values immediately before they are written to memory: a `0` or `1` overwrites the corresponding bit in the value, while an `X` leaves the bit in the value unchanged.
@@ -46,7 +47,8 @@ Execute the initialization program. <b>What is the sum of all values left in mem
 
 For some reason, the sea port's computer system still can't communicate with your ferry's docking program. It must be using <b>version 2</b> of the decoder chip!
 
-<p>A version 2 decoder chip doesn't modify the values being written at all.  Instead, it acts as a <a href="https://www.youtube.com/watch?v=PvfhANgLrm4" target="_blank">memory address decoder</a>. Immediately before a value is written to memory, each bit in the bitmask modifies the corresponding bit of the destination <b>memory address</b> in the following way:</p>
+A version 2 decoder chip doesn't modify the values being written at all.  Instead, it acts as a [memory address decoder](https://adventofcode.comhttps://www.youtube.com/watch?v=PvfhANgLrm4). Immediately before a value is written to memory, each bit in the bitmask modifies the corresponding bit of the destination <b>memory address</b> in the following way:
+
 - If the bitmask bit is `0`, the corresponding memory address bit is <b>unchanged</b>.
 - If the bitmask bit is `1`, the corresponding memory address bit is <b>overwritten with `1`</b>.
 - If the bitmask bit is `X`, the corresponding memory address bit is <b>floating</b>.

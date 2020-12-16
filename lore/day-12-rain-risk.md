@@ -2,7 +2,8 @@
 
 Your ferry made decent progress toward the island, but the storm came in faster than anyone expected. The ferry needs to take **evasive actions**!
 
-<p>Unfortunately, the ship's navigation computer seems to be malfunctioning; rather than giving a route directly to safety, it produced extremely circuitous instructions. When the captain uses the <a href="https://en.wikipedia.org/wiki/Public_address_system" target="_blank">PA system</a> to ask if anyone can help, you quickly volunteer.</p>
+Unfortunately, the ship's navigation computer seems to be malfunctioning; rather than giving a route directly to safety, it produced extremely circuitous instructions. When the captain uses the [PA system](https://adventofcode.comhttps://en.wikipedia.org/wiki/Public_address_system) to ask if anyone can help, you quickly volunteer.
+
 The navigation instructions (your puzzle input) consists of a sequence of single-character **actions** paired with integer input **values**. After staring at them for a few minutes, you work out what they probably mean:
 
 - Action **`N`** means to move **north** by the given value.
@@ -34,7 +35,8 @@ These instructions would be handled as follows:
 - `R90` would cause the ship to turn right by 90 degrees and face **south**; it remains at **east 17, north 3**.
 - `F11` would move the ship 11 units south to **east 17, south 8**.
 
-<p>At the end of these instructions, the ship's <a href="https://en.wikipedia.org/wiki/Manhattan_distance" target="_blank">Manhattan distance</a> (sum of the absolute values of its east/west position and its north/south position) from its starting position is `17 + 8` = **`25`**.</p>
+At the end of these instructions, the ship's [Manhattan distance](https://adventofcode.comhttps://en.wikipedia.org/wiki/Manhattan_distance) (sum of the absolute values of its east/west position and its north/south position) from its starting position is `17 + 8` = **`25`**.
+
 Figure out where the navigation instructions lead. **What is the Manhattan distance between that location and the ship's starting position?**
 
 ---
