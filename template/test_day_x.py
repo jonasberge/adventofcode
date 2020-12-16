@@ -7,7 +7,6 @@ class part_1:
   def test_example_1(self, problem):
     assert problem.solve_1() == 0000
 
-  @skip
   def test_solution(self, problem):
     assert problem.solve_1() == 0000
 
