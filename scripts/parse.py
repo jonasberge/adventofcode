@@ -55,7 +55,7 @@ content = re.sub(r"</article>", r"---\n\n", content)
 content = re.sub(r"(?<!<pre>)<code>([^<]*)</code>", r"`\1`", content)
 
 def emphasis_inside(content, start_tag, end_tag, replace):
-  emcode_pattern = rf"(?<!<pre>)({start_tag})({REANY}<em>[^<]*</em>{REANY})({end_tag})"
+  emcode_pattern = rf"(?<!<pre>)({start_tag})((?:(?!{end_tag})(?:.|\n))*?<em>[^<]*</em>{REANY})({end_tag})"
   content = re.sub(emcode_pattern, rf"{replace[0]}\2{replace[1]}", content)
 
   while True:
