@@ -9,7 +9,8 @@ The bitmask is always given as a string of 36 bits, written with the most signif
 
 For example, consider the following program:
 
-```mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X
+```
+mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X
 mem[8] = 11
 mem[7] = 101
 mem[8] = 0
@@ -53,7 +54,8 @@ A <b>floating</b> bit is not connected to anything and instead fluctuates unpred
 
 For example, consider the following program:
 
-```mask = 000000000000000000000000000000X1001X
+```
+mask = 000000000000000000000000000000X1001X
 mem[42] = 100
 mask = 00000000000000000000000000000000X0XX
 mem[26] = 1

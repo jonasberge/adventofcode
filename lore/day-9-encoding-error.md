@@ -23,7 +23,8 @@ Suppose the 26th number is `45`, and the first number (no longer an option, as i
 
 Here is a larger example which only considers the previous **5** numbers (and has a preamble of length 5):
 
-```35
+```
+35
 20
 15
 25

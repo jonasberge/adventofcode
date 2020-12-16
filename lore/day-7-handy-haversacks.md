@@ -6,7 +6,8 @@ Due to recent aviation regulations, many rules (your puzzle input) are being enf
 
 For example, consider the following rules:
 
-```light red bags contain 1 bright white bag, 2 muted yellow bags.
+```
+light red bags contain 1 bright white bag, 2 muted yellow bags.
 dark orange bags contain 3 bright white bags, 4 muted yellow bags.
 bright white bags contain 1 shiny gold bag.
 muted yellow bags contain 2 shiny gold bags, 9 faded blue bags.
@@ -51,7 +52,8 @@ Of course, the actual rules have a small chance of going several levels deeper t
 
 Here's another example:
 
-```shiny gold bags contain 2 dark red bags.
+```
+shiny gold bags contain 2 dark red bags.
 dark red bags contain 2 dark orange bags.
 dark orange bags contain 2 dark yellow bags.
 dark yellow bags contain 2 dark green bags.

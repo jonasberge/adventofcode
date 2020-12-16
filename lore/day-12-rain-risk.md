@@ -17,7 +17,8 @@ The ship starts by facing **east**. Only the `L` and `R` actions change the dire
 
 For example:
 
-```F10
+```
+F10
 N3
 F7
 R90

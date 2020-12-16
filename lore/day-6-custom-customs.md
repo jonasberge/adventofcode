@@ -5,7 +5,8 @@ The form asks a series of 26 yes-or-no questions marked `a` through `z`. All you
 
 However, the person sitting next to you seems to be experiencing a language barrier and asks if you can help. For each of the people in their group, you write down the questions for which they answer "yes", one per line.  For example:
 
-```abcx
+```
+abcx
 abcy
 abcz
 ```
@@ -14,7 +15,8 @@ In this group, there are **`6`** questions to which anyone answered "yes": `a`, 
 
 Another group asks for your help, then another, and eventually you've collected answers from every group on the plane (your puzzle input). Each group's answers are separated by a blank line, and within each group, each person's answers are on a single line. For example:
 
-```abc
+```
+abc
 
 a
 b
@@ -53,7 +55,8 @@ You don't need to identify the questions to which **anyone** answered "yes"; you
 
 Using the same  example as above:
 
-```abc
+```
+abc
 
 a
 b

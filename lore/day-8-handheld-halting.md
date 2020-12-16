@@ -13,7 +13,8 @@ The boot code is represented as a text file with one **instruction** per line of
 
 For example, consider the following program:
 
-```nop +0
+```
+nop +0
 acc +1
 jmp +4
 acc +3
@@ -26,7 +27,8 @@ acc +6
 
 These instructions are visited in this order:
 
-```nop +0  | 1
+```
+nop +0  | 1
 acc +1  | 2, 8(!)
 jmp +4  | 3
 acc +3  | 6
@@ -57,7 +59,8 @@ The program is supposed to terminate by **attempting to execute an instruction i
 
 For example, consider the same program from above:
 
-```nop +0
+```
+nop +0
 acc +1
 jmp +4
 acc +3

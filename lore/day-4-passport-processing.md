@@ -21,7 +21,8 @@ Passport data is validated in batch files (your puzzle input). Each passport is 
 
 Here is an example batch file containing four passports:
 
-```ecl:gry pid:860033327 eyr:2020 hcl:#fffffd
+```
+ecl:gry pid:860033327 eyr:2020 hcl:#fffffd
 byr:1937 iyr:2017 cid:147 hgt:183cm
 
 iyr:2013 ecl:amb cid:350 eyr:2023 pid:028048884
@@ -70,7 +71,8 @@ You can continue to ignore the `cid` field, but each other field has strict rule
 
 Your job is to count the passports where all required fields are both **present** and **valid** according to the above rules. Here are some example values:
 
-```byr valid:   2002
+```
+byr valid:   2002
 byr invalid: 2003
 
 hgt valid:   60in
@@ -91,7 +93,8 @@ pid invalid: 0123456789
 
 Here are some invalid passports:
 
-```eyr:1972 cid:100
+```
+eyr:1972 cid:100
 hcl:#18171d ecl:amb hgt:170 pid:186cm iyr:2018 byr:1926
 
 iyr:2019
@@ -108,7 +111,8 @@ pid:3556412378 byr:2007
 
 Here are some valid passports:
 
-```pid:087499704 hgt:74in ecl:grn iyr:2012 eyr:2030 byr:1980
+```
+pid:087499704 hgt:74in ecl:grn iyr:2012 eyr:2030 byr:1980
 hcl:#623a2f
 
 eyr:2029 ecl:blu cid:129 byr:1989

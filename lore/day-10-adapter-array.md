@@ -18,7 +18,8 @@ If you **use every adapter in your bag** at once, what is the distribution of jo
 
 For example, suppose that in your bag, you have adapters with the following joltage ratings:
 
-```16
+```
+16
 10
 15
 5
@@ -48,7 +49,8 @@ In this example, when using every adapter, there are **`7`** differences of 1 jo
 
 Here is a larger example:
 
-```28
+```
+28
 33
 18
 42
@@ -93,7 +95,8 @@ To completely determine whether you have enough adapters, you'll need to figure 
 
 The first example above (the one that starts with `16`, `10`, `15`) supports the following arrangements:
 
-```(0), 1, 4, 5, 6, 7, 10, 11, 12, 15, 16, 19, (22)
+```
+(0), 1, 4, 5, 6, 7, 10, 11, 12, 15, 16, 19, (22)
 (0), 1, 4, 5, 6, 7, 10, 12, 15, 16, 19, (22)
 (0), 1, 4, 5, 7, 10, 11, 12, 15, 16, 19, (22)
 (0), 1, 4, 5, 7, 10, 12, 15, 16, 19, (22)
@@ -107,7 +110,8 @@ The first example above (the one that starts with `16`, `10`, `15`) supports the
 
 The second example above (the one that starts with `28`, `33`, `18`) has many arrangements. Here are a few:
 
-```(0), 1, 2, 3, 4, 7, 8, 9, 10, 11, 14, 17, 18, 19, 20, 23, 24, 25, 28, 31,
+```
+(0), 1, 2, 3, 4, 7, 8, 9, 10, 11, 14, 17, 18, 19, 20, 23, 24, 25, 28, 31,
 32, 33, 34, 35, 38, 39, 42, 45, 46, 47, 48, 49, (52)
 
 (0), 1, 2, 3, 4, 7, 8, 9, 10, 11, 14, 17, 18, 19, 20, 23, 24, 25, 28, 31,

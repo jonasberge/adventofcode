@@ -14,7 +14,8 @@ To save time once you arrive, your goal is to figure out **the earliest bus you 
 
 For example, suppose you have the following notes:
 
-```939
+```
+939
 7,13,x,x,59,x,31,19
 ```
 
@@ -54,7 +55,8 @@ The shuttle company is running a contest: one gold coin for anyone that can find
 
 For example, suppose you have the same list of bus IDs as above:
 
-```7,13,x,x,59,x,31,19```
+```
+7,13,x,x,59,x,31,19```
 
 An `x` in the schedule means there are no constraints on what bus IDs must depart at that time.
 

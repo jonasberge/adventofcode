@@ -10,7 +10,8 @@ The **rules for ticket fields** specify a list of fields that exist **somewhere*
 
 Each ticket is represented by a single line of comma-separated values. The values are the numbers on the ticket in the order they appear; every ticket has the same format. For example, consider this ticket:
 
-```.--------------------------------------------------------.
+```
+.--------------------------------------------------------.
 | ????: 101    ?????: 102   ??????????: 103     ???: 104 |
 |                                                        |
 | ??: 301  ??: 302             ???????: 303      ??????? |
@@ -50,7 +51,8 @@ Using the valid ranges for each field, determine what order the fields appear on
 
 For example, suppose you have the following notes:
 
-```class: 0-1 or 4-19
+```
+class: 0-1 or 4-19
 row: 0-5 or 8-19
 seat: 0-13 or 16-19
 
