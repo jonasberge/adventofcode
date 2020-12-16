@@ -8,8 +8,12 @@ INPUTS_DIR = 'inputs'
 INPUTS_PATH = path.join(ROOT_PATH, INPUTS_DIR)
 
 
+def pad_day(day):
+  return str(day).zfill(2)
+
+
 def file_for_day(day):
-  return path.join(INPUTS_PATH, 'day-{}.txt'.format(day))
+  return path.join(INPUTS_PATH, 'day-{}.txt'.format(pad_day(day)))
 
 
 def read_lines(day):

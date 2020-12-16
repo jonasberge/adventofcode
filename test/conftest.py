@@ -4,8 +4,7 @@ from importlib import import_module, reload as reload_module
 from pytest import fixture
 from unittest import mock
 
-from lib.input import ROOT_PATH
-from lib.input import file_for_day
+from lib.input import ROOT_PATH, file_for_day, pad_day
 
 
 INPUTS_EXAMPLES_DIR = 'inputs/examples'
@@ -13,7 +12,7 @@ INPUTS_EXAMPLES_PATH = path.join(ROOT_PATH, INPUTS_EXAMPLES_DIR)
 
 
 def load_solution(day):
-  module = import_module('src.day_{}'.format(day))
+  module = import_module('src.day_{}'.format(pad_day(day)))
   reload_module(module)
   return module
 
@@ -30,7 +29,10 @@ def problem(request):
     return load_solution(day)
 
   with mock.patch('lib.input.file_for_day') as mock_file_for_day:
-    # file_path = file_for_day(day, example, INPUTS_EXAMPLES_PATH)
-    file_path = path.join(INPUTS_EXAMPLES_PATH, 'day-{}'.format(day), 'example-{}.txt'.format(example))
+    file_path = path.join(*[
+      INPUTS_EXAMPLES_PATH,
+      'day-{}'.format(pad_day(day)),
+      'example-{}.txt'.format(example)
+    ])
     mock_file_for_day.return_value = file_path
     return load_solution(day)

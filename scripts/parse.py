@@ -122,7 +122,7 @@ if len(argv) > 2:
   title = re.sub(r"([^aA-zZ0-9 ])", r"", title)
 
   directory = argv[2]
-  filename = LORE_MD_FORMAT.format(day, '-'.join(title.lower().split()))
+  filename = LORE_MD_FORMAT.format(day.zfill(2), '-'.join(title.lower().split()))
   file = path.abspath(path.join(directory, filename))
 
   with open(file, "w") as fd:

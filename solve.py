@@ -5,7 +5,7 @@ from sys import argv, exit
 if __name__ == '__main__':
   if len(argv) not in (2, 3): exit(1)
 
-  day = argv[1]
+  day = argv[1].zfill(2)
   part = int(argv[2]) if len(argv) == 3 else None
 
   try: module = import_module('src.day_{}'.format(day))
