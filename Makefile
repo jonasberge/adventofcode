@@ -33,8 +33,6 @@ else ifeq (test,$(firstword $(MAKECMDGOALS)))
   $(eval $(ARG_DAY):;@:)
 endif
 
-
-
 venv:
 	python3 -m venv venv
 
@@ -58,7 +56,7 @@ touch:
 
 lore:
 	mkdir -p $(LORE_DIR)
-	SESSION=$(SESSION) python3 ./scripts/parse.py $(ARG_DAY) $(LORE_DIR)
+	SESSION=$(SESSION) python3 ./scripts/lore.py $(ARG_DAY) $(LORE_DIR)
 
 test:
 	@if [ -z "${ARG_DAY}" ]; then \
