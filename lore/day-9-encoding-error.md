@@ -44,6 +44,7 @@ Here is a larger example which only considers the previous **5** numbers (and ha
 277
 309
 576
+
 ```
 
 In this example, after the 5-number preamble, almost every number is the sum of two of the previous 5 numbers; the only number that does not follow this rule is **`127`**.

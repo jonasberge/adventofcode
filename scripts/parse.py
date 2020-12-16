@@ -81,7 +81,7 @@ link_pattern = r"<a href=\"([^\"]*)\">([^<]*)</a>"
 content = re.sub(link_pattern, rf"[\2]({BASE_URL}\1)", content)
 
 # Code blocks
-content = re.sub(r"<pre><code>([^<]*)</code></pre>", r"```\n\1```\n", content)
+content = re.sub(r"<pre><code>(\n*[^<]*?\n*)</code></pre>", r"```\n\1\n```\n", content)
 
 # Useless elements
 content = re.sub(r"<span[^>]*>([^<]*)</span>", r"\1", content)

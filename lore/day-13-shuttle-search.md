@@ -17,6 +17,7 @@ For example, suppose you have the following notes:
 ```
 939
 7,13,x,x,59,x,31,19
+
 ```
 
 Here, the earliest timestamp you could depart is `939`, and the bus IDs in service are `7`, `13`, `59`, `31`, and `19`. Near timestamp `939`, these bus IDs depart at the times marked `D`:
@@ -56,7 +57,8 @@ The shuttle company is running a contest: one gold coin for anyone that can find
 For example, suppose you have the same list of bus IDs as above:
 
 ```
-7,13,x,x,59,x,31,19```
+7,13,x,x,59,x,31,19
+```
 
 An `x` in the schedule means there are no constraints on what bus IDs must depart at that time.
 

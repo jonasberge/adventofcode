@@ -9,6 +9,7 @@ However, the person sitting next to you seems to be experiencing a language barr
 abcx
 abcy
 abcz
+
 ```
 
 In this group, there are **`6`** questions to which anyone answered "yes": `a`, `b`, `c`, `x`, `y`, and `z`. (Duplicate answers to the same question don't count extra; each question counts at most once.)
@@ -31,6 +32,7 @@ a
 a
 
 b
+
 ```
 
 This list represents answers from five groups:
@@ -71,6 +73,7 @@ a
 a
 
 b
+
 ```
 
 This list represents answers from five groups:

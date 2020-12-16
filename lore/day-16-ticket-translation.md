@@ -17,6 +17,7 @@ Each ticket is represented by a single line of comma-separated values. The value
 | ??: 301  ??: 302             ???????: 303      ??????? |
 | ??: 401  ??: 402           ???? ????: 403    ????????? |
 '--------------------------------------------------------'
+
 ```
 
 Here, `?` represents text in a language you don't understand. This ticket might be represented as `101,102,103,104,301,302,303,401,402,403`; of course, the actual train tickets you're looking at are **much** more complicated. In any case, you've extracted just the numbers in such a way that the first number is always the same specific field, the second number is always a different specific field, and so on - you just don't know what each position actually means!
@@ -63,6 +64,7 @@ nearby tickets:
 3,9,18
 15,1,5
 5,14,9
+
 ```
 
 Based on the **nearby tickets** in the above example, the first position must be `row`, the second position must be `class`, and the third position must be `seat`; you can conclude that in **your ticket**, `class` is `12`, `row` is `11`, and `seat` is `13`.

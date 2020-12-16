@@ -35,6 +35,7 @@ hgt:179cm
 
 hcl:#cfa07d eyr:2025 pid:166559648
 iyr:2011 ecl:brn hgt:59in
+
 ```
 
 The first passport is **valid** - all eight fields are present. The second passport is **invalid** - it is missing `hgt` (the Height field).
@@ -89,6 +90,7 @@ ecl invalid: wat
 
 pid valid:   000000001
 pid invalid: 0123456789
+
 ```
 
 Here are some invalid passports:
@@ -107,6 +109,7 @@ ecl:brn hgt:182cm pid:021572410 eyr:2020 byr:1992 cid:277
 hgt:59cm ecl:zzz
 eyr:2038 hcl:74454a iyr:2023
 pid:3556412378 byr:2007
+
 ```
 
 Here are some valid passports:
@@ -124,6 +127,7 @@ pid:545766238 ecl:hzl
 eyr:2022
 
 iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
+
 ```
 
 Count the number of **valid** passports - those that have all required fields **and valid values**. Continue to treat `cid` as optional. **In your batch file, how many passports are valid?**
