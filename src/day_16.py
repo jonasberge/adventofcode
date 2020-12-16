@@ -1,6 +1,5 @@
+from math import prod
 from itertools import chain
-from collections import defaultdict, deque
-from copy import copy, deepcopy
 import re
 
 from lib.input import read_lines
@@ -136,7 +135,7 @@ def sum_invalid():
   return sum(invalid_tickets(nearby_tickets, rules))
 
 
-def multiply_own_departure_values():
+def own_ticket_values(predicate=lambda r: True):
   rules, own_ticket, nearby_tickets = parse_input()
   other_tickets = valid_tickets(nearby_tickets, rules)
 
@@ -162,25 +161,23 @@ def multiply_own_departure_values():
 
   for index, candidates in rule_candidates:
     selected = candidates - used_rules
-    print(selected)
     assert len(selected) == 1
     used_rules |= selected
 
     selected = list(selected)[0]
     column_for_rule[selected] = index
 
-  product = 1
+  values = []
 
   for index, rule in enumerate(rules):
-    if not rule.name.startswith('departure'):
+    if not predicate(rule):
       continue
 
     column = column_for_rule[index]
-    value = own_ticket.values[column]
-    product *= value
+    values.append(own_ticket.values[column])
 
-  return product
+  return values
 
 
 solve_1 = lambda: sum_invalid()
-solve_2 = lambda: multiply_own_departure_values()
+solve_2 = lambda: prod(own_ticket_values(lambda r: r.name.startswith('departure')))

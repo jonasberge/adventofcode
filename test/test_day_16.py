@@ -11,10 +11,9 @@ class part_1:
 
 
 class part_2:
-  @skip
   @use_example(2)
   def test_example_2(self, problem):
-    assert problem.solve_2() == 0000
+    assert problem.own_ticket_values() == [12, 11, 13]
 
   def test_solution(self, problem):
     assert problem.solve_2() == 1307550234719
