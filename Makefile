@@ -53,6 +53,7 @@ touch:
 	touch "$(EXAMPLES_DIR_DAY)/example-1.txt"
 	curl -f -b "session=$(SESSION)" -o $(INPUT_DEST) \
 		"https://adventofcode.com/2020/day/$(ARG_DAY)/input"
+	python scripts/strip.py $(INPUT_DEST)
 	command -v $(OPEN) && $(OPEN) $(INPUT_DEST) || true
 
 lore:
