@@ -1,7 +1,7 @@
 from os import path, getenv
 import requests
 import re
-from sys import argv
+from sys import argv, exit
 
 from markdownify import markdownify
 from bs4 import BeautifulSoup
@@ -11,12 +11,17 @@ YEAR = 2020
 BASE_URL = 'https://adventofcode.com'
 BASE_URL_DAY = BASE_URL + '/{}/day/'.format(YEAR)
 
+LORE_MD_FORMAT = 'day-{}-{}.md'
+
 REANY = r"(?:.|\n)*?"
 
 BLOCK_PLACE = ('#__BLOCK_START__#', '#__BLOCK_END__#')
 CODE_PLACE = ('#__CODE_START__#', '#__CODE_END__#')
 BOLD_PLACE = ('#__BOLD_START__#', '#__BOLD_END__#')
 
+
+if len(argv) <= 1:
+  raise Exception('Require first argument to be day number')
 
 if not getenv('SESSION'):
   raise Exception('No SESSION in environment')
@@ -104,11 +109,25 @@ bold_place_pattern = rf"{BOLD_PLACE[0]}(.*?){BOLD_PLACE[1]}"
 content = re.sub(bold_place_pattern, r"<b>\1</b>", content)
 
 # Titles
-content = re.sub(r"(##*\s)---\s([aA-zZ0-9:\s]+)\s---", r"\1\2", content)
+content = re.sub(r"(##*\s)---\s(.*?)\s---", r"\1\2", content)
 
 content = content.strip()
 content += '\n\n'
 content += '---\n\n'
 content += '[View the original source here]({})'.format(problem_url, problem_url)
+
+if len(argv) > 2:
+  match = re.match(r"##*\sDay\s\d+:\s(.*?)\s*\n", content)
+  title = match.groups()[0]
+  title = re.sub(r"([^aA-zZ0-9 ])", r"", title)
+
+  directory = argv[2]
+  filename = LORE_MD_FORMAT.format(day, '-'.join(title.lower().split()))
+  file = path.abspath(path.join(directory, filename))
+
+  with open(file, "w") as fd:
+    fd.write(content)
+
+  exit()
 
 print(content)
