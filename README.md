@@ -15,10 +15,10 @@ $ make install
 Make sure you are [logged in](https://adventofcode.com/auth/login), then open the page of [any puzzle's input text](https://adventofcode.com/2020/day/1/input) and copy the content of the `session` cookie. Create an `.env` file and define a variable `SESSION=<clipboard>` containing the copied value. Then you can run the following command.
 
 ```
-$ make new 1
+$ make touch 1
 ```
 
-This creates a solution script and a corresponding test file and opens them in your editor (`subl`). Additionally, the puzzle input is downloaded and saved in `inputs/day-1.txt`.
+This creates a solution script and a corresponding test file. Additionally, the puzzle input is downloaded and saved in `inputs/day-1.txt`. Relevant files for solving the problem are opened in your editor (`subl`).
 
 ### Run
 

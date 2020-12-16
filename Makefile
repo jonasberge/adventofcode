@@ -46,13 +46,14 @@ touch:
 	cp "$(TEMPLATE_DAY)" $(TARGET_DAY)
 	cp "$(TEMPLATE_TEST)" $(TARGET_TEST)
 	sed -i "s/'''?x'''/$(ARG_DAY)/g" $(TARGET_DAY)
-	command -v $(OPEN) && $(OPEN) $(TARGET_TEST) $(TARGET_DAY) || true
+	command -v $(OPEN) && $(OPEN) $(TARGET_DAY) || true
 	$(eval EXAMPLES_DIR_DAY="$(EXAMPLES_DIR)/$(PREFIX_DAY)-$(ARG_DAY_PAD)")
+	$(eval INPUT_DEST="$(INPUTS_DIR)/$(PREFIX_DAY)-$(ARG_DAY_PAD).txt")
 	mkdir -p $(INPUTS_DIR) $(EXAMPLES_DIR_DAY)
 	touch "$(EXAMPLES_DIR_DAY)/example-1.txt"
-	curl -f -b "session=$(SESSION)" \
-		"https://adventofcode.com/2020/day/$(ARG_DAY)/input" \
-		-o "$(INPUTS_DIR)/$(PREFIX_DAY)-$(ARG_DAY_PAD).txt"
+	curl -f -b "session=$(SESSION)" -o $(INPUT_DEST) \
+		"https://adventofcode.com/2020/day/$(ARG_DAY)/input"
+	command -v $(OPEN) && $(OPEN) $(INPUT_DEST) || true
 
 lore:
 	mkdir -p $(LORE_DIR)
