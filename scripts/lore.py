@@ -3,7 +3,6 @@ import requests
 import re
 from sys import argv, exit
 
-from markdownify import markdownify
 from bs4 import BeautifulSoup
 
 
