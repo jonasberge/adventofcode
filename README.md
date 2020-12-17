@@ -5,9 +5,8 @@ Workspace and solutions to fun problems found on [adventofcode.com](https://adve
 ### Initialize
 
 ```
-$ make venv
-$ . venv/bin/activate
 $ make install
+$ . venv/bin/activate
 ```
 
 ### Configure

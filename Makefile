@@ -36,8 +36,9 @@ endif
 venv:
 	python3 -m venv venv
 
-install:
-	pip install -U pip
+install: venv
+	source venv/bin/activate; \
+	pip install -U pip; \
 	pip install -r requirements.txt
 
 touch:
@@ -67,4 +68,4 @@ test:
 		$(TEST) "$(TEST_DIR)/$(PREFIX_TEST)_$(ARG_DAY_PAD).py"; \
 	fi
 
-.PHONY: venv install touch lore test
+.PHONY: install touch lore test
