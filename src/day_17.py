@@ -1,4 +1,5 @@
 from collections import defaultdict
+from itertools import product
 from copy import deepcopy
 
 from lib.input import read_lines
@@ -10,144 +11,69 @@ INACTIVE = '.'
 input = read_lines(17)
 
 
-def neighbours(x, y, z):
-  for i in range(x - 1, x + 2):
-    for j in range(y - 1, y + 2):
-      for k in range(z - 1, z + 2):
-        if (i, j, k) != (x, y, z):
-          yield (i, j, k)
+def neighbours(*pos):
+  if len(pos) == 1:
+    yield (pos[0] - 1,)
+    yield (pos[0] + 1,)
+    return
 
+  lhs, rhs = pos[:1], pos[1:]
+  l_begin, l_prev = None, None
 
-def create_dimension(Type):
-  return defaultdict(lambda: defaultdict(lambda: defaultdict(Type)))
+  lhs_gen = neighbours(*lhs)
+  rhs_gen = neighbours(*rhs)
+
+  for l, r in product(lhs_gen, rhs_gen):
+    if l_begin == None:
+      l_begin = l[0]
+
+    yield l + r
+
+    if l_prev == None or l[0] > l_prev:
+      yield l + rhs
+      l_prev = l[0]
+
+    if l[0] == l_begin:
+      yield lhs + r
 
 
 def cycle(states):
-  counts = create_dimension(int)
+  counts = defaultdict(int)
 
-  for z, z_axis in states.items():
-    for y, y_axis in z_axis.items():
-      for x, state in y_axis.items():
-        for i, j, k in neighbours(x, y, z):
-          if state == ACTIVE:
-            counts[k][j][i] += 1
-          else:
-            counts[k][j][i]
+  for position, state in states.items():
+    for neighbour in neighbours(*position):
+      if state == ACTIVE:
+        counts[neighbour] += 1
+      else:
+        counts[neighbour]
 
   new_states = deepcopy(states)
 
-  for z, z_axis in counts.items():
-    for y, y_axis in z_axis.items():
-      for x, state in y_axis.items():
-        if states[z][y][x] == ACTIVE:
-          if counts[z][y][x] not in (2, 3):
-            new_states[z][y][x] = INACTIVE
-            continue
-        if states[z][y][x] == INACTIVE:
-          if counts[z][y][x] == 3:
-            new_states[z][y][x] = ACTIVE
-            continue
+  for position, state in counts.items():
+    if states[position] == ACTIVE:
+      if counts[position] not in (2, 3):
+        new_states[position] = INACTIVE
+        continue
+    if states[position] == INACTIVE:
+      if counts[position] == 3:
+        new_states[position] = ACTIVE
+        continue
 
   return new_states
 
 
-def part_1():
-  states = create_dimension(lambda: INACTIVE)
+def solve(dimension):
+  states = defaultdict(lambda: INACTIVE)
 
   for x, line in enumerate(input):
     for y, state in enumerate(line):
-      states[0][y][x] = state
+      states[(x, y) + (0,) * (dimension - 2)] = state
 
   for _ in range(6):
     states = cycle(states)
 
-  count = 0
-
-  for z, z_axis in sorted(states.items()):
-    print('z = {}'.format(z))
-    for y, y_axis in sorted(z_axis.items()):
-      for x, state in sorted(y_axis.items()):
-        if state == ACTIVE:
-          count += 1
-        print((x, y), state)
-      print()
-    print()
-    print()
-
-  return count
+  return sum(1 for x in states.values() if x == ACTIVE)
 
 
-def create_dimension_2(Type):
-  return defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: defaultdict(Type))))
-
-
-def neighbours_2(x, y, z, w):
-  for i in range(x - 1, x + 2):
-    for j in range(y - 1, y + 2):
-      for k in range(z - 1, z + 2):
-        for l in range(w - 1, w + 2):
-          if (i, j, k, l) != (x, y, z, w):
-            yield (i, j, k, l)
-
-
-def cycle_2(states):
-  counts = create_dimension_2(int)
-
-  for w, w_axis in states.items():
-    for z, z_axis in w_axis.items():
-      for y, y_axis in z_axis.items():
-        for x, state in y_axis.items():
-          for i, j, k, l in neighbours_2(x, y, z, w):
-            if state == ACTIVE:
-              counts[l][k][j][i] += 1
-            else:
-              counts[l][k][j][i]
-
-  new_states = deepcopy(states)
-
-  for w, w_axis in counts.items():
-    for z, z_axis in w_axis.items():
-      for y, y_axis in z_axis.items():
-        for x, state in y_axis.items():
-          if states[w][z][y][x] == ACTIVE:
-            if counts[w][z][y][x] not in (2, 3):
-              new_states[w][z][y][x] = INACTIVE
-              continue
-          if states[w][z][y][x] == INACTIVE:
-            if counts[w][z][y][x] == 3:
-              new_states[w][z][y][x] = ACTIVE
-              continue
-
-  return new_states
-
-
-def part_2():
-  states = create_dimension_2(lambda: INACTIVE)
-
-  for x, line in enumerate(input):
-    for y, state in enumerate(line):
-      states[0][0][y][x] = state
-
-  for _ in range(6):
-    states = cycle_2(states)
-
-  count = 0
-
-  for w, w_axis in sorted(states.items()):
-    print('w = {}'.format(w))
-    for z, z_axis in sorted(w_axis.items()):
-      print('z = {}'.format(z))
-      for y, y_axis in sorted(z_axis.items()):
-        for x, state in sorted(y_axis.items()):
-          if state == ACTIVE:
-            count += 1
-          print((x, y), state)
-        print()
-      print()
-      print()
-
-  return count
-
-
-solve_1 = lambda: part_1()
-solve_2 = lambda: part_2()
+solve_1 = lambda: solve(3)
+solve_2 = lambda: solve(4)
