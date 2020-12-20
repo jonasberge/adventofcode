@@ -1,0 +1,64 @@
+## Day 18: Operation Order
+
+As you look out the window and notice a heavily-forested continent slowly appear over the horizon, you are interrupted by the child sitting next to you. They're curious if you could help them with their math homework.
+
+Unfortunately, it seems like this "math" [follows different rules](https://adventofcode.comhttps://www.youtube.com/watch?v=3QtRK7Y2pPU&amp;t=15) than you remember.
+
+The homework (your puzzle input) consists of a series of expressions that consist of addition (`+`), multiplication (`*`), and parentheses (`(...)`). Just like normal math, parentheses indicate that the expression inside must be evaluated before it can be used by the surrounding expression. Addition still finds the sum of the numbers on both sides of the operator, and multiplication still finds the product.
+
+However, the rules of **operator precedence** have changed. Rather than evaluating multiplication before addition, the operators have the **same precedence**, and are evaluated left-to-right regardless of the order in which they appear.
+
+For example, the steps to evaluate the expression `1 + 2 * 3 + 4 * 5 + 6` are as follows:
+
+<pre><b>1 + 2</b> * 3 + 4 * 5 + 6
+  <b>3   * 3</b> + 4 * 5 + 6
+      <b>9   + 4</b> * 5 + 6
+         <b>13   * 5</b> + 6
+             <b>65   + 6</b>
+                 <b>71</b>
+</pre>Parentheses can override this order; for example, here is what happens if parentheses are added to form `1 + (2 * 3) + (4 * (5 + 6))`:
+
+<pre>1 + <b>(2 * 3)</b> + (4 * (5 + 6))
+<b>1 +    6</b>    + (4 * (5 + 6))
+     7      + (4 * <b>(5 + 6)</b>)
+     7      + <b>(4 *   11   )</b>
+     <b>7      +     44</b>
+            <b>51</b>
+</pre>Here are a few more examples:
+
+- `2 * 3 + (4 * 5)` becomes <b>`26`</b>.
+- `5 + (8 * 3 + 9 + 3 * 4 * 3)` becomes <b>`437`</b>.
+- `5 * 9 * (7 * 3 * 3 + 9 * 3 + (8 + 6 * 4))` becomes <b>`12240`</b>.
+- `((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2` becomes <b>`13632`</b>.
+
+Before you can help with the homework, you need to understand it yourself. <b>Evaluate the expression on each line of the homework; what is the sum of the resulting values?</b>
+
+---
+
+### Part Two
+
+You manage to answer the child's questions and they finish part 1 of their homework, but get stuck when they reach the next section: <b>advanced</b> math.
+
+Now, addition and multiplication have <b>different</b> precedence levels, but they're not the ones you're familiar with. Instead, addition is evaluated <b>before</b> multiplication.
+
+For example, the steps to evaluate the expression `1 + 2 * 3 + 4 * 5 + 6` are now as follows:
+
+<pre><b>1 + 2</b> * 3 + 4 * 5 + 6
+  3   * <b>3 + 4</b> * 5 + 6
+  3   *   7   * <b>5 + 6</b>
+  <b>3   *   7</b>   *  11
+     <b>21       *  11</b>
+         <b>231</b>
+</pre>Here are the other examples from above:
+
+- `1 + (2 * 3) + (4 * (5 + 6))` still becomes **`51`**.
+- `2 * 3 + (4 * 5)` becomes **`46`**.
+- `5 + (8 * 3 + 9 + 3 * 4 * 3)` becomes **`1445`**.
+- `5 * 9 * (7 * 3 * 3 + 9 * 3 + (8 + 6 * 4))` becomes **`669060`**.
+- `((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2` becomes **`23340`**.
+
+**What do you get if you add up the results of evaluating the homework problems using these new rules?**
+
+---
+
+[View the original source here](https://adventofcode.com/2020/day/18)
