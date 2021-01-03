@@ -8,6 +8,10 @@ from lib.input import read_lines
 
 input = read_lines(20)
 
+N_CORNER = 2
+N_EDGE = 3
+N_INNER = 4
+
 
 # 1. middle tiles will match = all four sides
 # 2. edge (but not corner) tiles will match >= three of their sides
@@ -59,6 +63,34 @@ def parse_tiles(lines):
       return
 
 
+def count_matching_sides(tile, all_tiles):
+  amount = 0
+
+  for other in all_tiles:
+    if tile.id == other.id:
+      continue
+
+    for side in tile.sides:
+      original, flipped = side
+      for other_side in other.sides:
+        other_original, other_flipped = other_side
+        if original == other_original or original == other_flipped \
+            or flipped == other_original or flipped == other_flipped:
+          amount += 1
+          break
+
+  return amount
+
+
+# after solving part one you can see that there are
+# - exactly 100 tiles matching 4 sides
+# - exactly 40 tiles matching 3 sides and
+# - exactly 4 tiles matching 2 sides
+#
+# this means that we can put tiles into the three groups
+# named above without overlapping or ambiguity.
+
+
 def part_1():
   tiles = list(parse_tiles(input))
 
@@ -69,47 +101,14 @@ def part_1():
   n_edge = 4 * (side_length - 2)
   n_inner = amount - n_corner - n_edge
 
-  print(amount, side_length)
-  print(n_corner, n_edge, n_inner)
-
-  matches_corner = list()
+  matches = defaultdict(list)
 
   for tile in tiles:
+    num_matches = count_matching_sides(tile, tiles)
+    matches[num_matches].append(tile)
 
-    print(tile.id)
-    print('\n'.join(tile.data))
-    print(tile.sides)
-    print()
-
-    matches = 0
-
-    for other in tiles:
-      if tile.id == other.id:
-        continue
-
-      has_match = False
-
-      for side in tile.sides:
-        original, flipped = side
-        for other_side in other.sides:
-          other_original, other_flipped = other_side
-          if original == other_original or original == other_flipped \
-              or flipped == other_original or flipped == other_flipped:
-            has_match = True
-            break
-
-      if has_match:
-        matches += 1
-
-    print('matches:', matches)
-    print()
-    print()
-
-    if matches == 2:
-      matches_corner.append(tile)
-
-  assert len(matches_corner) == 4
-  return multiply(tile.id for tile in matches_corner)
+  assert len(matches[N_CORNER]) == 4
+  return multiply(tile.id for tile in matches[N_CORNER])
 
 
 def part_2():
