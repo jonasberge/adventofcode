@@ -82,6 +82,16 @@ def count_matching_sides(tile, all_tiles):
   return amount
 
 
+def grouped_tiles(tiles):
+  matches = defaultdict(list)
+
+  for tile in tiles:
+    num_matches = count_matching_sides(tile, tiles)
+    matches[num_matches].append(tile)
+
+  return matches
+
+
 # after solving part one you can see that there are
 # - exactly 100 tiles matching 4 sides
 # - exactly 40 tiles matching 3 sides and
@@ -90,30 +100,32 @@ def count_matching_sides(tile, all_tiles):
 # this means that we can put tiles into the three groups
 # named above without overlapping or ambiguity.
 
-
-def part_1():
+def multiply_corner_tile_ids():
   tiles = list(parse_tiles(input))
+  grouped = grouped_tiles(tiles)
+
+  assert len(grouped[N_CORNER]) == 4
+  return multiply(tile.id for tile in grouped[N_CORNER])
+
+
+# unfortunately we can't get away with not assembling the image.
+# so let's do that..
+
+def count_sea_monsters():
+  tiles = list(parse_tiles(input))
+  grouped = grouped_tiles(tiles)
 
   amount = len(tiles)
   side_length = int(sqrt(amount))
 
-  n_corner = 4
+  n_corner = N_CORNER
   n_edge = 4 * (side_length - 2)
   n_inner = amount - n_corner - n_edge
 
-  matches = defaultdict(list)
+  #
 
-  for tile in tiles:
-    num_matches = count_matching_sides(tile, tiles)
-    matches[num_matches].append(tile)
-
-  assert len(matches[N_CORNER]) == 4
-  return multiply(tile.id for tile in matches[N_CORNER])
-
-
-def part_2():
   return None
 
 
-solve_1 = lambda: part_1()
-solve_2 = lambda: part_2()
+solve_1 = lambda: multiply_corner_tile_ids()
+solve_2 = lambda: count_sea_monsters()
