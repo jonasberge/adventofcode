@@ -166,9 +166,117 @@ For reference, the IDs of the above tiles are:
 <pre><b>1951</b>    2311    <b>3079</b>
 2729    1427    2473
 <b>2971</b>    1489    <b>1171</b>
-</pre>To check that you've assembled the image correctly, multiply the IDs of the four corner tiles together. If you do this with the assembled tiles from the example above, you get `1951 * 3079 * 2971 * 1171` = **`20899048083289`**.
+</pre>To check that you've assembled the image correctly, multiply the IDs of the four corner tiles together. If you do this with the assembled tiles from the example above, you get `1951 * 3079 * 2971 * 1171` = <b>`20899048083289`</b>.
 
-Assemble the tiles into an image. **What do you get if you multiply together the IDs of the four corner tiles?**
+Assemble the tiles into an image. <b>What do you get if you multiply together the IDs of the four corner tiles?</b>
+
+---
+
+### Part Two
+
+Now, you're ready to <b>check the image for sea monsters</b>.
+
+The borders of each tile are not part of the actual image; start by removing them.
+
+In the example above, the tiles become:
+
+```
+.#.#..#. ##...#.# #..#####
+###....# .#....#. .#......
+##.##.## #.#.#..# #####...
+###.#### #...#.## ###.#..#
+##.#.... #.##.### #...#.##
+...##### ###.#... .#####.#
+....#..# ...##..# .#.###..
+.####... #..#.... .#......
+
+#..#.##. .#..###. #.##....
+#.####.. #.####.# .#.###..
+###.#.#. ..#.#### ##.#..##
+#.####.. ..##..## ######.#
+##..##.# ...#...# .#.#.#..
+...#..#. .#.#.##. .###.###
+.#.#.... #.##.#.. .###.##.
+###.#... #..#.##. ######..
+
+.#.#.### .##.##.# ..#.##..
+.####.## #.#...## #.#..#.#
+..#.#..# ..#.#.#. ####.###
+#..####. ..#.#.#. ###.###.
+#####..# ####...# ##....##
+#.##..#. .#...#.. ####...#
+.#.###.. ##..##.. ####.##.
+...###.. .##...#. ..#..###
+
+```
+
+Remove the gaps to form the actual image:
+
+```
+.#.#..#.##...#.##..#####
+###....#.#....#..#......
+##.##.###.#.#..######...
+###.#####...#.#####.#..#
+##.#....#.##.####...#.##
+...########.#....#####.#
+....#..#...##..#.#.###..
+.####...#..#.....#......
+#..#.##..#..###.#.##....
+#.####..#.####.#.#.###..
+###.#.#...#.######.#..##
+#.####....##..########.#
+##..##.#...#...#.#.#.#..
+...#..#..#.#.##..###.###
+.#.#....#.##.#...###.##.
+###.#...#..#.##.######..
+.#.#.###.##.##.#..#.##..
+.####.###.#...###.#..#.#
+..#.#..#..#.#.#.####.###
+#..####...#.#.#.###.###.
+#####..#####...###....##
+#.##..#..#...#..####...#
+.#.###..##..##..####.##.
+...###...##...#...#..###
+
+```
+
+Now, you're ready to search for sea monsters! Because your image is monochrome, a sea monster will look like this:
+
+```
+                  # 
+#    ##    ##    ###
+ #  #  #  #  #  #   
+
+```
+
+<p>When looking for this pattern in the image, <b>the spaces can be anything</b>; only the `#` need to match. Also, you might need to rotate or flip your image before it's oriented correctly to find sea monsters. In the above image, <b>after flipping and rotating it</b> to the appropriate orientation, there are <b>two</b> sea monsters (marked with <code><b>O</b></code>):</p>
+<pre>.####...#####..#...###..
+#####..#..#.#.####..#.#.
+.#.#...#.###...#.##.<b>O</b>#..
+#.<b>O</b>.##.<b>O</b><b>O</b>#.#.<b>O</b><b>O</b>.##.<b>O</b><b>O</b><b>O</b>##
+..#<b>O</b>.#<b>O</b>#.<b>O</b>##<b>O</b>..<b>O</b>.#<b>O</b>##.##
+...#.#..##.##...#..#..##
+#.##.#..#.#..#..##.#.#..
+.###.##.....#...###.#...
+#.####.#.#....##.#..#.#.
+##...#..#....#..#...####
+..#.##...###..#.#####..#
+....#.##.#.#####....#...
+..##.##.###.....#.##..#.
+#...#...###..####....##.
+.#.##...#.##.#.#.###...#
+#.###.#..####...##..#...
+#.###...#.##...#.##<b>O</b>###.
+.<b>O</b>##.#<b>O</b><b>O</b>.###<b>O</b><b>O</b>##..<b>O</b><b>O</b><b>O</b>##.
+..<b>O</b>#.<b>O</b>..<b>O</b>..<b>O</b>.#<b>O</b>##<b>O</b>##.###
+#.#..##.########..#..##.
+#.#####..#.#...##..#....
+#....##..#.#########..##
+#...#.....#..##...###.##
+#..###....##.#...##.##.#
+</pre>Determine how rough the waters are in the sea monsters' habitat by counting the number of `#` that are **not** part of a sea monster. In the above example, the habitat's water roughness is **`273`**.
+
+**How many `#` are not part of a sea monster?**
 
 ---
 

@@ -3,11 +3,19 @@ from copy import copy, deepcopy
 import re
 from math import inf, sqrt, prod as multiply
 from enum import Enum
+import itertools
 
 from lib.input import read_lines
 
 
 input = read_lines(20)
+
+seamonster_patterns = [
+  # https://stackoverflow.com/a/5616910
+  r"(?=..................#.)",
+  r"(?=#....##....##....###)",
+  r"(?=.#..#..#..#..#..#...)"
+]
 
 
 # 1. inner tiles will match = all four sides
@@ -33,8 +41,8 @@ class Direction(Enum):
 
   @property
   def y_offset(self):
-    if self == self.BOTTOM: return -1
-    if self == self.TOP: return 1
+    if self == self.TOP: return -1
+    if self == self.BOTTOM: return 1
     return 0
 
   def get_orientation(self):
@@ -162,6 +170,12 @@ class Tile:
     data = rotate_str_list_angle(data, transform.rotation_angle)
     return Tile(self.id, data)
 
+  def without_sides(self):
+    return Tile(self.id, [
+      row[1:-1]  # remove first and last columns
+      for row in self.data[1:-1]  # remove first and last row
+    ])
+
 
 class Step:
   def __init__(self, tile, x, y):
@@ -228,6 +242,35 @@ def arrange_image(tiles):
   return result
 
 
+def combine_tiled_image(tiled_image):
+  tiled_image = {
+    pos: tile.without_sides()
+    for pos, tile in tiled_image.items()
+  }
+
+  tile_length = len(tiled_image[0, 0].data)
+  num_tiles = int(sqrt(len(tiled_image)))
+  image_length = tile_length * num_tiles
+
+  image_matrix = {}
+
+  for pos, tile in tiled_image.items():
+    x, y = pos[0] * tile_length, pos[1] * tile_length
+    for dy, row in enumerate(tile.data):
+      for dx, char in enumerate(row):
+        image_matrix[x + dx, y + dy] = char
+
+  image = []
+
+  for x in range(image_length):
+    current = ''
+    for y in range(image_length):
+      current = current + image_matrix[x, y]
+    image.append(current)
+
+  return image
+
+
 def parse_tile(it):
   match = re.match(r"^Tile (\d+):$", next(it))
 
@@ -247,9 +290,13 @@ def parse_tiles():
     except StopIteration:
       return
 
-def parse_image():
+def parse_tiled_image():
   tiles = list(parse_tiles())
   return arrange_image(tiles)
+
+def parse_image():
+  tiled_image = parse_tiled_image()
+  return combine_tiled_image(tiled_image)
 
 
 def print_tile(tile):
@@ -259,20 +306,78 @@ def print_tile(tile):
 
 
 def multiply_corner_tile_ids():
-  image = parse_image()
-  high = sqrt(len(image)) - 1
+  tiled_image = parse_tiled_image()
+  high = sqrt(len(tiled_image)) - 1
 
   return multiply([
-    image[0, 0].id,
-    image[0, high].id,
-    image[high, 0].id,
-    image[high, high].id
+    tiled_image[0, 0].id,
+    tiled_image[0, high].id,
+    tiled_image[high, 0].id,
+    tiled_image[high, high].id
   ])
 
 
-def count_sea_monsters():
-  return None
+
+"""
+                    #
+  #    ##    ##    ###
+   #  #  #  #  #  #
+
+"""
+def count_sea_monsters(image):
+  patterns = seamonster_patterns
+  matches = []
+  amount = 0
+
+  for i in range(len(image)):
+
+    old_matches, matches = matches, []
+    for p, start in old_matches:
+      if p + 1 == len(patterns):
+        amount += 1
+        continue
+
+      for m in re.finditer(patterns[p + 1], image[i]):
+        # print(p + 1, m.start(), '[{}]'.format(start))
+        if m.start() == start:
+          matches.append((p + 1, start))
+
+    for m in re.finditer(patterns[0], image[i]):
+      # print('->', patterns[0], image[i], m.start())
+      matches.append((0, m.start()))
+
+  return amount
+
+
+def all_image_rotations(image):
+  return [
+    rotate_str_list_angle(image, 90 * 0),
+    rotate_str_list_angle(image, 90 * 1),
+    rotate_str_list_angle(image, 90 * 2),
+    rotate_str_list_angle(image, 90 * 3),
+  ]
+
+def all_image_transformations(image):
+  return itertools.chain.from_iterable([
+    all_image_rotations(image),
+    all_image_rotations(flip_str_list_horizontal_axis(image)),
+    all_image_rotations(flip_str_list_vertical_axis(image))
+  ])
+
+
+def part_2():
+  image = parse_image()
+
+  max_amount = 0
+  for transformed in all_image_transformations(image):
+    amount = count_sea_monsters(transformed)
+    max_amount = max(max_amount, amount)
+
+  total_hashes = sum(line.count('#') for line in image)
+  seamonster_hashes = sum(p.count('#') for p in seamonster_patterns)
+
+  return total_hashes - seamonster_hashes * max_amount
 
 
 solve_1 = lambda: multiply_corner_tile_ids()
-solve_2 = lambda: count_sea_monsters()
+solve_2 = lambda: part_2()
