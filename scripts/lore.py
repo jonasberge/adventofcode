@@ -78,6 +78,7 @@ content = re.sub(r"<em class=\"star\">([^<]*)</em>", r"_**\1**_", content)
 # Links
 link_pattern = r"<a href=\"([^\"]*)\"[^>]*>([^<]*)</a>"
 content = re.sub(link_pattern, rf"[\2]({BASE_URL}\1)", content)
+content = re.sub(rf"{BASE_URL}(https?://)", rf"\1", content)
 
 # Code blocks
 content = re.sub(r"<pre><code>(\n*[^<]*?\n*)</code></pre>", r"```\n\1\n```\n", content)

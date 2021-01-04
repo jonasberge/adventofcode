@@ -2,7 +2,7 @@
 
 As you look out the window and notice a heavily-forested continent slowly appear over the horizon, you are interrupted by the child sitting next to you. They're curious if you could help them with their math homework.
 
-Unfortunately, it seems like this "math" [follows different rules](https://adventofcode.comhttps://www.youtube.com/watch?v=3QtRK7Y2pPU&amp;t=15) than you remember.
+Unfortunately, it seems like this "math" [follows different rules](https://www.youtube.com/watch?v=3QtRK7Y2pPU&amp;t=15) than you remember.
 
 The homework (your puzzle input) consists of a series of expressions that consist of addition (`+`), multiplication (`*`), and parentheses (`(...)`). Just like normal math, parentheses indicate that the expression inside must be evaluated before it can be used by the surrounding expression. Addition still finds the sum of the numbers on both sides of the operator, and multiplication still finds the product.
 

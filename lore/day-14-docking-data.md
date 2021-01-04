@@ -2,7 +2,7 @@
 
 As your ferry approaches the sea port, the captain asks for your help again. The computer system that runs this port isn't compatible with the docking program on the ferry, so the docking parameters aren't being correctly initialized in the docking program's memory.
 
-After a brief inspection, you discover that the sea port's computer system uses a strange [bitmask](https://adventofcode.comhttps://en.wikipedia.org/wiki/Mask_(computing)) system in its initialization program. Although you don't have the correct decoder chip handy, you can emulate it in software!
+After a brief inspection, you discover that the sea port's computer system uses a strange [bitmask](https://en.wikipedia.org/wiki/Mask_(computing)) system in its initialization program. Although you don't have the correct decoder chip handy, you can emulate it in software!
 
 The initialization program (your puzzle input) can either update the bitmask or write a value to memory.  Values and memory addresses are both 36-bit unsigned integers.  For example, ignoring bitmasks for a moment, a line like `mem[8] = 11` would write the value `11` to memory address `8`.
 
@@ -39,7 +39,7 @@ result: 00000000000000000000000000000<b>1</b>0000<b>0</b>0  (decimal 64)
 
 To initialize your ferry's docking program, you need the sum of all values left in memory after the initialization program completes. (The entire 36-bit address space begins initialized to the value `0` at every address.) In the above example, only two values in memory are not zero - `101` (at address `7`) and `64` (at address `8`) - producing a sum of <b>`165`</b>.
 
-Execute the initialization program. <b>What is the sum of all values left in memory after it completes?</b>
+Execute the initialization program. <b>What is the sum of all values left in memory after it completes?</b> (Do not truncate the sum to 36 bits.)
 
 ---
 
@@ -47,7 +47,7 @@ Execute the initialization program. <b>What is the sum of all values left in mem
 
 For some reason, the sea port's computer system still can't communicate with your ferry's docking program. It must be using <b>version 2</b> of the decoder chip!
 
-A version 2 decoder chip doesn't modify the values being written at all.  Instead, it acts as a [memory address decoder](https://adventofcode.comhttps://www.youtube.com/watch?v=PvfhANgLrm4). Immediately before a value is written to memory, each bit in the bitmask modifies the corresponding bit of the destination <b>memory address</b> in the following way:
+A version 2 decoder chip doesn't modify the values being written at all.  Instead, it acts as a [memory address decoder](https://www.youtube.com/watch?v=PvfhANgLrm4). Immediately before a value is written to memory, each bit in the bitmask modifies the corresponding bit of the destination <b>memory address</b> in the following way:
 
 - If the bitmask bit is `0`, the corresponding memory address bit is <b>unchanged</b>.
 - If the bitmask bit is `1`, the corresponding memory address bit is <b>overwritten with `1`</b>.

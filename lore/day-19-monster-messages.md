@@ -78,7 +78,7 @@ This small change has a big impact: now, the rules **do** contain loops, and the
 
 Fortunately, many of the rules are unaffected by this change; it might help to start by looking at which rules always match the same set of values and how **those** rules (especially rules `42` and `31`) are used by the new versions of rules `8` and `11`.
 
-(Remember, **you only need to handle the rules you have**; building a solution that could handle any hypothetical combination of rules would be [significantly more difficult](https://adventofcode.comhttps://en.wikipedia.org/wiki/Formal_grammar).)
+(Remember, **you only need to handle the rules you have**; building a solution that could handle any hypothetical combination of rules would be [significantly more difficult](https://en.wikipedia.org/wiki/Formal_grammar).)
 
 For example:
 
